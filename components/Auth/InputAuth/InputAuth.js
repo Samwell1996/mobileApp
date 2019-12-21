@@ -4,48 +4,44 @@ import T from 'prop-types';
 import { MaterialIcons } from '@expo/vector-icons';
 import { s } from './styles';
 
-function InputAuth({ error, name, ...props }) {
+function InputAuth({ error, name, onBlur, onFocus, ...props }) {
   const [isFocus, setIsFocus] = useState(false);
 
-  function handleFocus() {
+  function _onFocus(e) {
     setIsFocus(true);
+    if (onFocus) {
+      onFocus(e);
+    }
   }
-  function onBlur() {
+  function _onBlur(e) {
     setIsFocus(false);
+    if (onBlur) {
+      onBlur(e);
+    }
   }
-
   return (
     <View>
-      {/* eslint-disable-next-line no-nested-ternary */}
-      <View style={error ? s.Error : isFocus ? s.focused : s.normal}>
+      <View
+        style={[s.default, isFocus && s.focused, error && s.error]}
+      >
         <View style={s.labelContent}>
-          <Text
-            style={error ? s.labelError : s.label}
-            onFocus={handleFocus}
-          >
-            {name}
-          </Text>
+          <Text style={error ? s.labelError : s.label}>{name}</Text>
           <View
-            style={
-              // eslint-disable-next-line no-nested-ternary
-              error
-                ? s.borderFocus
-                : isFocus
-                ? s.borderFocus
-                : s.borderNormal
-            }
+            style={[
+              s.borderDefault,
+              isFocus && s.borderFocus,
+              error && s.borderFocus,
+            ]}
           />
         </View>
-        <TextInput onBlur={onBlur} onFocus={handleFocus} {...props} />
+        <TextInput onBlur={_onBlur} onFocus={_onFocus} {...props} />
       </View>
       {!!error && (
         <View>
           <Text style={isFocus ? s.textError : s.textErrorGrey}>
             {error}
           </Text>
-          {isFocus ? (
-            <MaterialIcons style={s.icon} name="error" size={25} />
-          ) : null}
+          <MaterialIcons style={s.icon} name="error" size={25} />
         </View>
       )}
     </View>
@@ -55,6 +51,8 @@ function InputAuth({ error, name, ...props }) {
 InputAuth.propTypes = {
   name: T.string,
   error: T.bool,
+  onBlur: T.bool,
+  onFocus: T.bool,
 };
 
 export default InputAuth;

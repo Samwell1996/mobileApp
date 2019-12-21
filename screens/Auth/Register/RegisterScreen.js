@@ -6,6 +6,7 @@ import screens from '../../../navigation/screens';
 import {
   email,
   password,
+  fullName,
   shape,
 } from '../../../utils/validationSchema';
 import InputAuth from '../../../components/Auth/InputAuth/InputAuth';
@@ -17,6 +18,7 @@ function RegisterScreen({ navigation }) {
     email,
     password,
     passwordAgain: password,
+    fullName,
   });
   return (
     <Formik
@@ -24,13 +26,22 @@ function RegisterScreen({ navigation }) {
         email: '',
         password: '',
         passwordAgain: '',
+        fullName: '',
       }}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
         setSubmitting(true);
       }}
+      validateOnBlur
     >
-      {({ values, errors, handleChange, handleSubmit }) => {
+      {({
+        values,
+        errors,
+        handleChange,
+        handleSubmit,
+        handleBlur,
+        touched,
+      }) => {
         return (
           <KeyboardAvoidingView
             onSubmit={handleSubmit}
@@ -40,12 +51,23 @@ function RegisterScreen({ navigation }) {
           >
             <View>
               <InputAuth
+                name="Full Name"
+                placeholder="David Karen"
+                onChangeText={handleChange('fullName')}
+                value={values.fullName}
+                onBlur={handleBlur('fullName')}
+                error={touched.fullName ? errors.fullName : ''}
+                autoCapitalize="sentences"
+              />
+              <InputAuth
                 name="Email"
                 placeholder="example@gmail.com"
                 onChangeText={handleChange('email')}
                 value={values.email}
+                onBlur={handleBlur('email')}
                 keyboardType="email-address"
-                error={errors.email}
+                error={touched.email ? errors.email : ''}
+                autoCapitalize="none"
               />
               <InputAuth
                 name="Password"
@@ -53,7 +75,9 @@ function RegisterScreen({ navigation }) {
                 secureTextEntry
                 onChangeText={handleChange('password')}
                 value={values.password}
-                error={errors.password}
+                onBlur={handleBlur('password')}
+                error={touched.password ? errors.password : ''}
+                autoCapitalize="none"
               />
               <InputAuth
                 name="Repeat Password"
@@ -61,7 +85,11 @@ function RegisterScreen({ navigation }) {
                 secureTextEntry
                 onChangeText={handleChange('passwordAgain')}
                 value={values.passwordAgain}
-                error={errors.passwordAgain}
+                onBlur={handleBlur('passwordAgain')}
+                error={
+                  touched.passwordAgain ? errors.passwordAgain : ''
+                }
+                autoCapitalize="none"
               />
             </View>
             <Bottom

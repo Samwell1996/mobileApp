@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import colors from '../../../styles/colors';
 
 export const s = StyleSheet.create({
-  normal: {
+  default: {
     borderColor: colors.borderColorGrey,
     borderWidth: 1,
     zIndex: 1,
@@ -16,30 +16,12 @@ export const s = StyleSheet.create({
     marginTop: 20,
   },
   focused: {
-    borderRadius: 4,
-    height: 44,
-    marginHorizontal: 16,
-    justifyContent: 'center',
-    paddingLeft: 16,
-    paddingRight: 39,
     backgroundColor: colors.white,
-    marginTop: 20,
     borderColor: colors.primary,
-    borderWidth: 2,
-    zIndex: 1,
   },
-  Error: {
-    borderRadius: 4,
-    height: 44,
-    marginHorizontal: 16,
-    justifyContent: 'center',
-    paddingLeft: 16,
-    paddingRight: 39,
+  error: {
     backgroundColor: colors.white,
-    marginTop: 20,
     borderColor: colors.isErrorColor,
-    borderWidth: 2,
-    zIndex: 1,
   },
   label: {
     fontSize: 16,
@@ -55,7 +37,7 @@ export const s = StyleSheet.create({
     paddingHorizontal: 5,
     zIndex: 4,
   },
-  borderNormal: {
+  borderDefault: {
     flex: 1,
     flexDirection: 'row',
     height: 3,
@@ -65,13 +47,9 @@ export const s = StyleSheet.create({
     zIndex: 3,
   },
   borderFocus: {
-    flex: 1,
-    flexDirection: 'row',
     height: 5,
     backgroundColor: colors.white,
     top: -11,
-    left: 0,
-    zIndex: 3,
   },
   labelContent: {
     position: 'absolute',

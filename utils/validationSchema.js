@@ -12,5 +12,9 @@ export const passwordLogin = Yup.string()
   .min(6, 'Wrong password')
   .max(20, 'Wrong password')
   .required('Wrong password');
+export const fullName = Yup.string()
+  .min(4, 'Please, enter valid name.')
+  .max(100, 'Must be shorter than 100')
+  .required('Please, enter valid name.');
 
 export const shape = (args) => Yup.object().shape(args);

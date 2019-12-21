@@ -19,7 +19,11 @@ export const s = StyleSheet.create({
   buttonRestorePassword: {
     color: colors.primary,
     backgroundColor: colors.colorNone,
-    left: 230,
     fontSize: 14,
+  },
+  buttonRestorePasswordView: {
+    alignItems: 'flex-end',
+    marginRight: 16,
+    marginTop: 8,
   },
 });

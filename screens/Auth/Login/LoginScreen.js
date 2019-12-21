@@ -27,8 +27,16 @@ function LoginScreen({ navigation }) {
       onSubmit={(values, { setSubmitting }) => {
         setSubmitting(true);
       }}
+      validateOnBlur
     >
-      {({ values, errors, handleChange, handleSubmit }) => {
+      {({
+        values,
+        errors,
+        handleChange,
+        handleSubmit,
+        handleBlur,
+        touched,
+      }) => {
         return (
           <KeyboardAvoidingView
             onSubmit={handleSubmit}
@@ -42,8 +50,10 @@ function LoginScreen({ navigation }) {
                 placeholder="example@gmail.com"
                 onChangeText={handleChange('email')}
                 value={values.email}
+                onBlur={handleBlur('email')}
                 keyboardType="email-address"
-                error={errors.email}
+                error={touched.email ? errors.email : ''}
+                autoCapitalize="none"
               />
               <InputAuth
                 name="Password"
@@ -51,16 +61,22 @@ function LoginScreen({ navigation }) {
                 secureTextEntry
                 onChangeText={handleChange('passwordLogin')}
                 value={values.passwordLogin}
-                error={errors.passwordLogin}
-              />
-              <Text
-                style={s.buttonRestorePassword}
-                onPress={() =>
-                  navigation.navigate(screens.RestorePassword)
+                onBlur={handleBlur('passwordLogin')}
+                error={
+                  touched.passwordLogin ? errors.passwordLogin : ''
                 }
-              >
-                Forgot password?
-              </Text>
+                autoCapitalize="none"
+              />
+              <View style={s.buttonRestorePasswordView}>
+                <Text
+                  style={s.buttonRestorePassword}
+                  onPress={() =>
+                    navigation.navigate(screens.RestorePassword)
+                  }
+                >
+                  Forgot password?
+                </Text>
+              </View>
             </View>
             <Bottom
               onPressFirst={() =>

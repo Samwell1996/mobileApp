@@ -21,8 +21,16 @@ function RestorePasswordScreen({ navigation }) {
       onSubmit={(values, { setSubmitting }) => {
         setSubmitting(true);
       }}
+      validateOnBlur
     >
-      {({ values, errors, handleChange, handleSubmit }) => {
+      {({
+        values,
+        errors,
+        handleChange,
+        handleSubmit,
+        handleBlur,
+        touched,
+      }) => {
         return (
           <KeyboardAvoidingView
             onSubmit={handleSubmit}
@@ -37,7 +45,9 @@ function RestorePasswordScreen({ navigation }) {
                 onChangeText={handleChange('email')}
                 value={values.email}
                 keyboardType="email-address"
-                error={errors.email}
+                onBlur={handleBlur('email')}
+                error={touched.email ? errors.email : ''}
+                autoCapitalize="none"
               />
             </View>
             <Bottom
