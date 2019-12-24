@@ -98,6 +98,7 @@ export const s = StyleSheet.create({
     alignItems: 'center',
     marginLeft: 16,
     marginTop: 16,
+    marginBottom: 16,
     height: 37,
     borderColor: colors.borderColorGrey,
     backgroundColor: colors.white,
@@ -111,6 +112,7 @@ export const s = StyleSheet.create({
     alignItems: 'center',
     marginRight: 16,
     marginTop: 16,
+    marginBottom: 16,
     height: 37,
     borderColor: colors.borderColorGrey,
     backgroundColor: colors.white,
@@ -124,6 +126,7 @@ export const s = StyleSheet.create({
   },
   ButtonFocus: {
     backgroundColor: colors.primary,
+    borderColor: colors.colorNone,
   },
   textPriceFocus: {
     color: colors.white,
@@ -132,12 +135,12 @@ export const s = StyleSheet.create({
     height: 1,
     backgroundColor: colors.borderColorGrey,
     marginHorizontal: 16,
-    marginVertical: 16,
+    marginBottom: 16,
   },
   textUahContainer: {
     position: 'absolute',
     right: 34,
-    marginTop: 9,
+    marginTop: 25,
   },
   textPriceLocation: {
     color: colors.primary,

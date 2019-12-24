@@ -23,8 +23,9 @@ function LoginScreen({ navigation }) {
   });
   const store = useStore();
 
+  // eslint-disable-next-line no-shadow
   async function onSubmit({ email, password }) {
-    await store.auth.login.run({ email, password });
+    // await store.auth.login.run({ email, password });
     NavigationService.navigateToApp();
   }
 

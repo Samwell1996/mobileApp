@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   Text,
   View,
@@ -21,6 +21,7 @@ import colors from '../../styles/colors';
 
 function CreatePostScreen() {
   const actionRef = useRef();
+  const [isSwitch, setIsSwitch] = useState(true);
 
   async function onOpenCamera() {
     try {
@@ -80,25 +81,41 @@ function CreatePostScreen() {
         <Text style={s.text}>price</Text>
         <View style={s.containerPriceButton}>
           <View style={s.containerButton}>
-            <TouchableOpacity style={[s.priceButton]}>
-              <Text style={s.textPrice}>Price</Text>
+            <TouchableOpacity
+              style={[s.priceButton, isSwitch && s.ButtonFocus]}
+              onPress={() => setIsSwitch(true)}
+            >
+              <Text
+                style={[s.textPrice, isSwitch && s.textPriceFocus]}
+              >
+                Price
+              </Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[s.freeButton]}>
-              <Text style={s.textPrice}>Free</Text>
+            <TouchableOpacity
+              style={[s.freeButton, !isSwitch && s.ButtonFocus]}
+              onPress={() => setIsSwitch(false)}
+            >
+              <Text
+                style={[s.textPrice, !isSwitch && s.textPriceFocus]}
+              >
+                Free
+              </Text>
             </TouchableOpacity>
           </View>
-          <View style={s.line} />
-          <View>
-            <TextInput
-              keyboardType="number-pad"
-              autoCompleteType="cc-number"
-              placeholder="Enter price..."
-              style={s.inputTitle}
-            />
-            <TouchableOpacity style={s.textUahContainer}>
-              <Text style={s.textPriceLocation}>uah</Text>
-            </TouchableOpacity>
-          </View>
+          {isSwitch && (
+            <View>
+              <View style={s.line} />
+              <TextInput
+                keyboardType="number-pad"
+                autoCompleteType="cc-number"
+                placeholder="Enter price..."
+                style={s.inputTitle}
+              />
+              <TouchableOpacity style={s.textUahContainer}>
+                <Text style={s.textPriceLocation}>uah</Text>
+              </TouchableOpacity>
+            </View>
+          )}
         </View>
         <Text style={s.text}>location</Text>
         <View style={s.bottomContainer}>

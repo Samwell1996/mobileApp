@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Text,
   View,
@@ -16,6 +16,8 @@ import screens from '../../navigation/screens';
 import image from '../../assets/Logo.png';
 
 function SettingScreen({ navigation }) {
+  const [isWebView, setIsWebView] = useState(false);
+
   function logout() {
     Alert.alert(
       'Logout',
@@ -57,13 +59,7 @@ function SettingScreen({ navigation }) {
         </TouchableOpacity>
         <View style={s.line} />
         <TouchableOpacity
-          onPress={() => (
-            <WebView
-              originWhitelist={['*']}
-              source={{ uri: 'https://expo.io' }}
-              style={{ marginTop: 50 }}
-            />
-          )}
+          onPress={() => setIsWebView(!isWebView)}
           style={s.containerInfo}
         >
           <Text style={s.text}>Terms & Conditions</Text>
@@ -87,6 +83,14 @@ function SettingScreen({ navigation }) {
           <Text style={s.textLogOut}>log out</Text>
         </TouchableOpacity>
       </View>
+      {isWebView && (
+        <WebView
+          source={{
+            uri:
+              'https://www.termsfeed.com/terms-conditions-generator/',
+          }}
+        />
+      )}
     </View>
   );
 }
