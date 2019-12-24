@@ -2,6 +2,8 @@ import mirror from 'mirror-to-object-pairs';
 
 export default mirror([
   'App',
+  'Empty',
+  'Setting',
 
   // Authentication
   'Auth',

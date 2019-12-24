@@ -9,8 +9,8 @@ function ProfileScreen({ navigation }) {
     <View style={s.container}>
       <Text>Profile Screen</Text>
       <Button
-        title="Logout"
-        onPress={() => navigation.navigate(screens.Auth)}
+        title="Settings"
+        onPress={() => navigation.navigate(screens.Setting)}
       />
     </View>
   );

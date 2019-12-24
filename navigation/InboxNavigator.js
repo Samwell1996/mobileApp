@@ -2,8 +2,8 @@ import { createStackNavigator } from 'react-navigation-stack';
 import screens from './screens';
 import InboxScreen from '../screens/Inbox/InboxScreen';
 
-const BrowseNavigator = createStackNavigator({
+const InboxNavigator = createStackNavigator({
   [screens.Inbox]: InboxScreen,
 });
 
-export default BrowseNavigator;
+export default InboxNavigator;

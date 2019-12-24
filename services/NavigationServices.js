@@ -1,4 +1,5 @@
 import { NavigationActions } from 'react-navigation';
+import screen from '../navigation/screens';
 
 class NavigationServices {
   constructor() {
@@ -21,8 +22,17 @@ class NavigationServices {
     );
   }
 
-  navigateToHome() {
-    this.navigate('Home');
+  navigateToAuth() {
+    this.navigate('Auth');
+  }
+  navigateToLogin() {
+    this.navigate('Login');
+  }
+  navigateToApp() {
+    this.navigate('MainApp');
+  }
+  onGoBack() {
+    this._navigation.dispatch(NavigationActions.back());
   }
 }
 

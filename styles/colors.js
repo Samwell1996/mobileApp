@@ -4,6 +4,8 @@ export default {
   white: '#fff',
   tabColorGrey: '#A0A4B1',
   borderColorGrey: '#D6D6D6',
+  greyPhotos: '#F8F9FB',
   isErrorColor: '#FF4060',
   colorNone: 'transparent',
+  greyColorIconChevron: '#D6D6D6',
 };

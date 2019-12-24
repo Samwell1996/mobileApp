@@ -1,9 +1,11 @@
 import { types } from 'mobx-state-tree';
+import { AsyncStorage } from 'react-native';
 import { AuthStore } from './Auth/AuthStore';
 import { ViewerStore } from './ViewerStore';
 import { LatestProductsStore } from './Products/LatestProductsStore';
 import Api from '../Api';
 import { EntitiesStore } from './EntitiesStore';
+import { NavigationService } from '../services';
 
 export const RootStore = types
   .model('RootStore', {
@@ -16,22 +18,22 @@ export const RootStore = types
     return {
       async bootstrap() {
         try {
-          // eslint-disable-next-line no-undef
-          const token = window.localStorage.getItem('___token');
-
-          // TODO: check for undefined token
+          const token = await AsyncStorage.getItem('___token');
 
           if (!token) {
-            throw new Error('Unauthorized');
+            NavigationService.navigateToAuth();
+            return;
           }
 
-          Api.Auth.setToken(token);
+          await Api.Auth.setToken(token);
           const res = await Api.Account.getUser();
 
           store.viewer.setViewer(res.data);
           store.auth.setIsLoggedIn(true);
+
+          NavigationService.navigateToApp();
         } catch (err) {
-          console.log(err);
+          NavigationService.navigateToAuth();
         }
       },
     };

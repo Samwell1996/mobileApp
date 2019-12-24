@@ -6,7 +6,8 @@ import AppSwitchNavigator from './AppSwitchNavigator';
 import CreatePostNavigator from './CreatePostNavigator';
 import screens from './screens';
 
-const StackNavigator = createStackNavigator({
+const StackNavigator = createStackNavigator(
+  {
     [screens.App]: AppSwitchNavigator,
     [screens.CreatePostModal]: CreatePostNavigator,
   },

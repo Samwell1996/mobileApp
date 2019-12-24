@@ -1,9 +1,16 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import screens from './screens';
 import ProfileScreen from '../screens/Profile/ProfileScreen';
+import SettingScreen from '../screens/Settings/SettingScreen';
 
-const ProfileNavigator = createStackNavigator({
-  [screens.Profile]: ProfileScreen,
-});
+const ProfileNavigator = createStackNavigator(
+  {
+    [screens.Profile]: ProfileScreen,
+    [screens.Setting]: SettingScreen,
+  },
+  {
+    headerLayoutPreset: 'center',
+  },
+);
 
 export default ProfileNavigator;

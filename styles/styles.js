@@ -1,4 +1,5 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
+import colors from './colors';
 
 const styles = StyleSheet.create({
   fillAll: {
@@ -11,6 +12,15 @@ const styles = StyleSheet.create({
   tabCenter: {
     textAlign: 'center',
     fontSize: 10,
+  },
+  header: {
+    ...Platform.select({
+      android: {
+        elevation: 0,
+        borderBottomWidth: StyleSheet.hairlineWidth,
+        borderBottomColor: colors.borderColorGrey,
+      },
+    }),
   },
 });
 

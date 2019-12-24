@@ -18,7 +18,6 @@ export const LoginStore = types
 
         const res = yield Api.Auth.login({ password, email });
 
-        console.log(res.data);
         store.isLoading = false;
       } catch (err) {
         store.isError = true;

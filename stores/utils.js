@@ -5,6 +5,7 @@ import {
   onSnapshot,
   types,
 } from 'mobx-state-tree';
+import { AsyncStorage } from 'react-native';
 
 export function asyncModel(thunk, auto = true) {
   const model = types
@@ -51,75 +52,29 @@ export function asyncModel(thunk, auto = true) {
     }));
 
   return types.optional(model, {});
-  // return model.create({});
 }
-// export function suspenseModel(thunk) {
-//   const model = types
-//     .model('SuspenseModel', {})
-//     .volatile(() => ({
-//       pendingPromise: null,
-//       error: null,
-//     }))
-//
-//     .actions((store) => ({
-//       setPending(value) {
-//         store.pendingPromise = value;
-//       },
-//
-//       setError(value) {
-//         store.error = value;
-//       },
-//
-//       read(...args) {
-//         if (store.pendingPromise != null) {
-//           throw store.pendingPromise;
-//         } else if (store.error != null) {
-//           throw store.error;
-//         }
-//
-//         const value = thunk(...args)(
-//           store,
-//           getParent(store),
-//           getRoot(store),
-//         );
-//
-//         if (typeof value === 'function') {
-//           const promise = value()
-//             .then(() => {
-//               store.setPending(null);
-//             })
-//             .catch((err) => {
-//               store.setPending(null);
-//               err._clear = () => store.setError(null);
-//               store.setError(err);
-//             });
-//           store.setPending(promise);
-//
-//           throw store.pendingPromise;
-//         }
-//         return value;
-//       },
-//     }));
-// }
+
 export function createPersist(store) {
   onSnapshot(store, (snapshot) => {
-    // eslint-disable-next-line no-undef
-    window.localStorage.setItem(
-      '__persist',
-      JSON.stringify({
-        auth: {
-          isLoggedIn: snapshot.auth.isLoggedIn,
-        },
-        viewer: {
-          user: snapshot.viewer.user,
-        },
-      }),
-    );
+    try {
+      AsyncStorage.setItem(
+        '__persist',
+        JSON.stringify({
+          auth: {
+            isLoggedIn: snapshot.auth.isLoggedIn,
+          },
+          viewer: {
+            user: snapshot.viewer.user,
+          },
+        }),
+      );
+    } catch (err) {
+      console.log(err);
+    }
   });
 
-  function rehydrate() {
-    // eslint-disable-next-line no-undef
-    const snapshot = window.localStorage.getItem('__persist');
+  async function rehydrate() {
+    const snapshot = await AsyncStorage.getItem('__persist');
 
     if (snapshot) {
       applySnapshot(store, JSON.parse(snapshot));

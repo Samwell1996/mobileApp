@@ -3,7 +3,11 @@ import screens from './screens';
 import CreatePostModal from '../screens/CreatePost/CreatePostScreen';
 
 const CreatePostNavigator = createStackNavigator({
-  [screens.CreatePost]: CreatePostModal,
-});
+    [screens.CreatePost]: CreatePostModal,
+  },
+  {
+    headerLayoutPreset: 'center',
+  },
+);
 
 export default CreatePostNavigator;
