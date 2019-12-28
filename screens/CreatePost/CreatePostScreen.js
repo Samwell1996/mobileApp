@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
+  KeyboardAvoidingView,
 } from 'react-native';
 import {
   Ionicons,
@@ -77,7 +78,10 @@ function CreatePostScreen() {
           </View>
         </View>
       </View>
-      <View>
+      <KeyboardAvoidingView
+        keyBoardVerticalOffset={0}
+        behavior="padding"
+      >
         <Text style={s.text}>price</Text>
         <View style={s.containerPriceButton}>
           <View style={s.containerButton}>
@@ -135,7 +139,7 @@ function CreatePostScreen() {
             />
           </TouchableOpacity>
         </View>
-      </View>
+      </KeyboardAvoidingView>
       <ActionSheet
         ref={actionRef}
         title={

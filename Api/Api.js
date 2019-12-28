@@ -52,4 +52,15 @@ export const Products = {
   fetchLatest() {
     return axios.get(`${BASE_URL}/products/latest`);
   },
+  fetchMore({ from, limit }) {
+    return axios.get(
+      `${BASE_URL}/products/latest?from=${from}&limit=${limit}`,
+    );
+  },
+  getById(id) {
+    return axios.get(`${BASE_URL}/products/${id}`);
+  },
+  byUserId(id) {
+    return axios.get(`${BASE_URL}/users/${id}/products`);
+  },
 };

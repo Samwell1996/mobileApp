@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 import T from 'prop-types';
 import {
   email,
-  passwordLogin,
+  password,
   shape,
 } from '../../../utils/validationSchema';
 import InputAuth from '../../../components/Auth/InputAuth/InputAuth';
@@ -19,13 +19,12 @@ import gStyles from '../../../styles/styles';
 function LoginScreen({ navigation }) {
   const validationSchema = shape({
     email,
-    passwordLogin,
+    password,
   });
   const store = useStore();
 
-  // eslint-disable-next-line no-shadow
   async function onSubmit({ email, password }) {
-    // await store.auth.login.run({ email, password });
+    await store.auth.login.run({ email, password });
     NavigationService.navigateToApp();
   }
 
@@ -49,7 +48,6 @@ function LoginScreen({ navigation }) {
       }) => {
         return (
           <KeyboardAvoidingView
-            onSubmit={handleSubmit}
             keyBoardVerticalOffset={80}
             behavior="padding"
             style={s.container}
@@ -69,12 +67,10 @@ function LoginScreen({ navigation }) {
                 name="Password"
                 placeholder="Password"
                 secureTextEntry
-                onChangeText={handleChange('passwordLogin')}
-                value={values.passwordLogin}
-                onBlur={handleBlur('passwordLogin')}
-                error={
-                  touched.passwordLogin ? errors.passwordLogin : ''
-                }
+                onChangeText={handleChange('password')}
+                value={values.password}
+                onBlur={handleBlur('password')}
+                error={touched.password ? errors.password : ''}
                 autoCapitalize="none"
               />
               <View style={s.buttonRestorePasswordView}>
@@ -92,7 +88,7 @@ function LoginScreen({ navigation }) {
               onPressFirst={() =>
                 navigation.navigate(screens.Register)
               }
-              onPressSecond={onSubmit}
+              onPressSecond={handleSubmit}
               textFirst="Don’t have an account?"
               textSecond="register"
               textThird="login"

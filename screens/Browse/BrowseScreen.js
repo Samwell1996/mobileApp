@@ -1,27 +1,43 @@
-import React from 'react';
-import { Button, Text, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { Text, View, TouchableOpacity } from 'react-native';
+import { observer } from 'mobx-react';
+import { FontAwesome } from '@expo/vector-icons';
 import T from 'prop-types';
+import { useStore } from '../../stores/createStore';
+import ProductList from '../../components/ProductList/ProductList';
+import Header from '../../components/Header/Header';
+import Search from '../../components/Header/Search/Search';
 import { s } from './styles';
-import screens from '../../navigation/screens';
+import gStyles from '../../styles/styles';
+import colors from '../../styles/colors';
 
-function BrowseScreen({ navigation }) {
+function BrowseScreen() {
+  const store = useStore();
+  console.log(store.latestProducts.items, 'itemLatest');
+  useEffect(() => {
+    store.latestProducts.fetchLatest.run();
+  }, []);
+
   return (
     <View style={s.container}>
       <Text>Browse Screen</Text>
-      <Button
-        title="Create Post Modals"
-        onPress={() => navigation.navigate(screens.CreatePostModal)}
-      />
+      <ProductList store={store.latestProducts} />
     </View>
   );
 }
 
 BrowseScreen.navigationOptions = () => ({
-  title: 'BrowseScreen',
+  headerStyle: gStyles.header,
+  header: (
+    <Header>
+      <Search />
+      <TouchableOpacity style={s.iconFilter}>
+        <FontAwesome name="filter" size={25} color={colors.primary} />
+      </TouchableOpacity>
+    </Header>
+  ),
 });
 
-BrowseScreen.propTypes = {
-  navigation: T.object,
-};
+BrowseScreen.propTypes = {};
 
-export default BrowseScreen;
+export default observer(BrowseScreen);

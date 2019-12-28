@@ -6,6 +6,7 @@ import {
   types,
 } from 'mobx-state-tree';
 import { AsyncStorage } from 'react-native';
+import { normalize } from 'normalizr';
 
 export function asyncModel(thunk, auto = true) {
   const model = types
@@ -38,6 +39,13 @@ export function asyncModel(thunk, auto = true) {
           return store._auto(promise);
         }
         return promise;
+      },
+      merge(data, schema) {
+        const { entities, result } = normalize(data, schema)
+
+        getRoot(store).entities.merge(entities);
+
+        return result;
       },
       async _auto(promise) {
         try {

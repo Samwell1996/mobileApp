@@ -15,6 +15,7 @@ import Bottom from '../../../components/Auth/Bottom/Bottom';
 import { s } from '../styles';
 import { useStore } from '../../../stores/createStore';
 import NavigationService from '../../../services/NavigationServices';
+import gStyles from '../../../styles/styles';
 
 function RegisterScreen({ navigation }) {
   const validationSchema = shape({
@@ -25,11 +26,9 @@ function RegisterScreen({ navigation }) {
   });
   const store = useStore();
 
-  // eslint-disable-next-line no-shadow
   async function onSubmit({ email, password, fullName }) {
     await store.auth.register.run({ email, password, fullName });
-
-    NavigationService.navigateToApp();
+    NavigationService.navigateToLogin();
   }
 
   return (
@@ -54,7 +53,6 @@ function RegisterScreen({ navigation }) {
       }) => {
         return (
           <KeyboardAvoidingView
-            onSubmit={handleSubmit}
             keyBoardVerticalOffset={80}
             behavior="padding"
             style={s.container}
@@ -104,7 +102,7 @@ function RegisterScreen({ navigation }) {
             </View>
             <Bottom
               onPressFirst={() => navigation.navigate(screens.Login)}
-              onPressSecond={onSubmit}
+              onPressSecond={handleSubmit}
               textFirst="Have an account??"
               textSecond="login"
               textThird="register"
@@ -118,7 +116,7 @@ function RegisterScreen({ navigation }) {
 
 RegisterScreen.navigationOptions = () => ({
   title: 'Register',
-  headerStyle: s.header,
+  headerStyle: gStyles.header,
 });
 
 RegisterScreen.propTypes = {

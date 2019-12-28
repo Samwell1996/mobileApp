@@ -1,4 +1,5 @@
 import { types } from 'mobx-state-tree';
+import { OwnProducts } from './Products/OwnProductsStore';
 
 export const UserModel = types
   .model('ViewerStore', {
@@ -10,6 +11,8 @@ export const UserModel = types
     createdAt: types.string,
     updatedAt: types.string,
     email: types.string,
+
+    ownProducts: types.optional(OwnProducts, {}),
   })
 
   .views((store) => ({

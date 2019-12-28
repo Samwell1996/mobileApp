@@ -8,10 +8,6 @@ export const password = Yup.string()
   .min(6, 'Password must contain 6-20 characters.')
   .max(20, 'Password must contain 6-20 characters.')
   .required('Passwords don’t match.');
-export const passwordLogin = Yup.string()
-  .min(6, 'Wrong password')
-  .max(20, 'Wrong password')
-  .required('Wrong password');
 export const fullName = Yup.string()
   .min(4, 'Please, enter valid name.')
   .max(100, 'Must be shorter than 100')

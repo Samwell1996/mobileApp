@@ -8,4 +8,8 @@ export const s = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  iconFilter: {
+    paddingRight: 10,
+    paddingLeft: 19,
+  },
 });

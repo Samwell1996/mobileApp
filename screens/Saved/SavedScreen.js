@@ -3,6 +3,8 @@ import { Button, Text, View } from 'react-native';
 import T from 'prop-types';
 import { s } from './styles';
 import screens from '../../navigation/screens';
+import Header from '../../components/Header/Header';
+import Search from '../../components/Header/Search/Search';
 
 function SavedScreen({ navigation }) {
   return (
@@ -17,7 +19,11 @@ function SavedScreen({ navigation }) {
 }
 
 SavedScreen.navigationOptions = () => ({
-  title: 'SavedScreen',
+  header: (
+    <Header>
+      <Search />
+    </Header>
+  ),
 });
 
 SavedScreen.propTypes = {
