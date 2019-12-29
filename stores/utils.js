@@ -1,8 +1,11 @@
 import {
   applySnapshot,
+  getIdentifier,
   getParent,
   getRoot,
+  isStateTreeNode,
   onSnapshot,
+  resolveIdentifier,
   types,
 } from 'mobx-state-tree';
 import { AsyncStorage } from 'react-native';
@@ -110,4 +113,19 @@ export function createCollection(ofModel, asyncModels = {}) {
       },
     }));
   return types.optional(collection, {});
+}
+
+export function safeReference(T) {
+  return types.reference(T, {
+    get(identifier, parent) {
+      if (isStateTreeNode(identifier)) {
+        identifier = getIdentifier(identifier);
+      }
+
+      return resolveIdentifier(T, parent, identifier);
+    },
+    set(value) {
+      return value;
+    },
+  });
 }

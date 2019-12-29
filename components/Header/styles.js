@@ -13,6 +13,11 @@ export const s = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
     height: headerHeight,
+  },
+  paddingAndroid: {
     paddingTop: 33,
+  },
+  paddingIphone: {
+    paddingTop: 17,
   },
 });

@@ -25,7 +25,6 @@ function LoginScreen({ navigation }) {
 
   async function onSubmit({ email, password }) {
     await store.auth.login.run({ email, password });
-    NavigationService.navigateToApp();
   }
 
   return (

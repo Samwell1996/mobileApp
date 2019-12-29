@@ -1,5 +1,4 @@
-import Api from '../../Api';
-import { createCollection, asyncModel } from '../utils';
+import { createCollection } from '../utils';
 import { useStore } from '../createStore';
 import { UserModel } from '../UserModel';
 
@@ -8,6 +7,4 @@ export function useUsersCollection() {
   return store.entities.users;
 }
 
-export const UsersCollection = createCollection(UserModel, {
-
-});
+export const UsersCollection = createCollection(UserModel, {});

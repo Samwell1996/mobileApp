@@ -26,9 +26,11 @@ export const RootStore = types
           }
 
           await Api.Auth.setToken(token);
+
           const res = await Api.Account.getUser();
 
           store.viewer.setViewer(res.data);
+
           store.auth.setIsLoggedIn(true);
 
           NavigationService.navigateToApp();

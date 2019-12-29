@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { observer } from 'mobx-react';
 import { FontAwesome } from '@expo/vector-icons';
 import T from 'prop-types';
@@ -13,16 +13,15 @@ import colors from '../../styles/colors';
 
 function BrowseScreen() {
   const store = useStore();
-  console.log(store.latestProducts.items, 'itemLatest');
   useEffect(() => {
     store.latestProducts.fetchLatest.run();
   }, []);
 
   return (
-    <View style={s.container}>
-      <Text>Browse Screen</Text>
-      <ProductList store={store.latestProducts} />
-    </View>
+    <ProductList
+      store={store.latestProducts}
+      onItemPress={() => {}}
+    />
   );
 }
 

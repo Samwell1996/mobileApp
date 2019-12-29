@@ -1,8 +1,8 @@
 import { getRoot, types } from 'mobx-state-tree';
+import { Alert } from 'react-native';
 import { asyncModel } from '../utils';
 import Api from '../../Api';
-import NavigationService from '../../services/NavigationServices';
-import { Alert } from 'react-native';
+import NavigationServices from '../../services/NavigationServices';
 
 export const AuthStore = types
   .model('AuthStore', {
@@ -24,45 +24,34 @@ export const AuthStore = types
 
 function loginFlow({ password, email }) {
   return async (flow) => {
-    const res = await Api.Auth.login({ password, email });
+    try {
+      const res = await Api.Auth.login({ password, email });
 
-    Api.Auth.setToken(res.data.token);
+      Api.Auth.setToken(res.data.token);
 
-    getRoot(flow).viewer.setViewer(res.data.user);
-    getRoot(flow).auth.setIsLoggedIn(true);
+      getRoot(flow).viewer.setViewer(res.data.user);
+      getRoot(flow).auth.setIsLoggedIn(true);
+      NavigationServices.navigateToApp();
+    } catch (error) {
+      correctAuthAlert();
+      NavigationServices.navigateToAuth();
+      console.log(error);
+    }
   };
 }
 
-// function loginFlow({ password, email }) {
-//   return async (flow) => {
-//     try {
-//       const res = await Api.Auth.login({ password, email });
-//
-//       Api.Auth.setToken(res.data.token);
-//
-//       getRoot(flow).viewer.setViewer(res.data.user);
-//       getRoot(flow).auth.setIsLoggedIn(true);
-//       NavigationService.navigateToApp();
-//     } catch (error) {
-//       NavigationService.navigateToAuth();
-//       console.log(error);
-//       correctAuthAlert();
-//     }
-//   };
-// }
-
-// async function correctAuthAlert() {
-//   Alert.alert(
-//     'Wrong password or email',
-//     'Please, enter correct password and email',
-//     [
-//       {
-//         text: 'OK',
-//         style: 'cancel',
-//       },
-//     ],
-//   );
-// }
+function correctAuthAlert() {
+  Alert.alert(
+    'Wrong password or email',
+    'Please, enter correct password and email',
+    [
+      {
+        text: 'OK',
+        style: 'cancel',
+      },
+    ],
+  );
+}
 
 function registerFlow({ password, email, fullName }) {
   return async () => {
