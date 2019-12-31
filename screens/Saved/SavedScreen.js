@@ -1,20 +1,18 @@
-import React from 'react';
-import { Button, Text, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { observer } from 'mobx-react';
 import T from 'prop-types';
-import { s } from './styles';
-import screens from '../../navigation/screens';
 import Header from '../../components/Header/Header';
 import Search from '../../components/Header/Search/Search';
+import { useStore } from '../../stores/createStore';
+import ProductList from '../../components/ProductList/ProductList';
 
-function SavedScreen({ navigation }) {
+function SavedScreen() {
+  const store = useStore();
+  useEffect(() => {
+    store.savedProducts.fetchSaved.run();
+  });
   return (
-    <View style={s.container}>
-      <Text>Saved Screen</Text>
-      <Button
-        title="Create Post Modals"
-        onPress={() => navigation.navigate(screens.CreatePostModal)}
-      />
-    </View>
+    <ProductList store={store.savedProducts} onItemPress={() => {}} />
   );
 }
 
@@ -26,8 +24,6 @@ SavedScreen.navigationOptions = () => ({
   ),
 });
 
-SavedScreen.propTypes = {
-  navigation: T.object,
-};
+SavedScreen.propTypes = {};
 
-export default SavedScreen;
+export default observer(SavedScreen);

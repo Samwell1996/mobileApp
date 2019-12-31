@@ -6,6 +6,7 @@ import { LatestProductsStore } from './Products/LatestProductsStore';
 import Api from '../Api';
 import { EntitiesStore } from './EntitiesStore';
 import { NavigationService } from '../services';
+import { SavedProductsStore } from './Products/SavedProductsStore';
 
 export const RootStore = types
   .model('RootStore', {
@@ -13,6 +14,7 @@ export const RootStore = types
     viewer: types.optional(ViewerStore, {}),
     latestProducts: types.optional(LatestProductsStore, {}),
     entities: types.optional(EntitiesStore, {}),
+    savedProducts: types.optional(SavedProductsStore, {}),
   })
   .actions((store) => {
     return {

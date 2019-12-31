@@ -10,4 +10,8 @@ export const s = StyleSheet.create({
   paddingFooter: {
     paddingBottom: 50,
   },
+  container: {
+    backgroundColor: colors.grey,
+    height: '100%',
+  },
 });

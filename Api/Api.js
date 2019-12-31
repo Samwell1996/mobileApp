@@ -63,4 +63,13 @@ export const Products = {
   byUserId(id) {
     return axios.get(`${BASE_URL}users/${id}/products`);
   },
+  fetchSaved() {
+    return axios.get(`${BASE_URL}products/saved`);
+  },
+  fetchSavedDelete(id) {
+    return axios.delete(`${BASE_URL}products/${id}/saved`);
+  },
+  addToSaved(id) {
+    return axios.post(`${BASE_URL}products/${id}/saved`);
+  },
 };

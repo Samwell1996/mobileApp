@@ -66,12 +66,13 @@ const routes = {
     screen: EmptyScreen,
     navigationOptions: {
       tabBarIcon: () => (
-        <AntDesign
-          name="pluscircle"
-          size={56}
-          color={colors.primary}
-          style={style.plusCenter}
-        />
+        <View style={style.plusCenter}>
+          <AntDesign
+            name="pluscircle"
+            size={56}
+            color={colors.primary}
+          />
+        </View>
       ),
       tabBarLabel: () => <View style={style.plusBottom} />,
     },

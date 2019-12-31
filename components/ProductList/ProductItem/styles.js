@@ -11,8 +11,12 @@ export const s = StyleSheet.create({
     borderColor: colors.borderColorGrey,
     borderRadius: 8,
   },
-  image: {
+  containerImage: {
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
     overflow: 'hidden',
+  },
+  image: {
     justifyContent: 'center',
     alignItems: 'center',
     height: 148,
@@ -49,7 +53,6 @@ export const s = StyleSheet.create({
   },
   iconSave: {
     position: 'absolute',
-    color: colors.tabColorGrey,
     right: 14,
     bottom: 12,
   },

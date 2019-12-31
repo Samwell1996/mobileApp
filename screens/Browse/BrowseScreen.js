@@ -10,6 +10,7 @@ import Search from '../../components/Header/Search/Search';
 import { s } from './styles';
 import gStyles from '../../styles/styles';
 import colors from '../../styles/colors';
+import ListFooter from '../../components/ProductList/ListFooter/ListFooter';
 
 function BrowseScreen() {
   const store = useStore();
@@ -21,6 +22,13 @@ function BrowseScreen() {
     <ProductList
       store={store.latestProducts}
       onItemPress={() => {}}
+      onRefresh={() => store.latestProducts.fetchLatest.run()}
+      refreshing={store.latestProducts.fetchLatest.isLoading}
+      ListFooterComponent={() => (
+        <ListFooter fetch={store.latestProducts.fetchMore} />
+      )}
+      onEndReached={() => store.latestProducts.fetchMore.run()}
+      onEndReachedThreshold={0.3}
     />
   );
 }
