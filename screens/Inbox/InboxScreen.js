@@ -1,27 +1,24 @@
 import React from 'react';
-import { Button, Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import T from 'prop-types';
+import image from '../../assets/inbox.png';
 import { s } from './styles';
-import screens from '../../navigation/screens';
+import gStyles from '../../styles/styles';
 
-function InboxScreen({ navigation }) {
+function InboxScreen() {
   return (
-    <View style={s.container}>
-      <Text>Inbox Screen</Text>
-      <Button
-        title="Create Post Modals"
-        onPress={() => navigation.navigate(screens.CreatePostModal)}
-      />
+    <View style={s.containerNoMessages}>
+      <Image source={image} />
+      <Text style={s.textNoMessages}>No messages yet</Text>
     </View>
   );
 }
 
 InboxScreen.navigationOptions = () => ({
-  title: 'InboxScreen',
+  title: 'Inbox',
+  headerStyle: gStyles.header,
 });
 
-InboxScreen.propTypes = {
-  navigation: T.object,
-};
+InboxScreen.propTypes = {};
 
 export default InboxScreen;

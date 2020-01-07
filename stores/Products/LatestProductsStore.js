@@ -3,7 +3,7 @@ import { ProductModel } from './ProductModel';
 import { asyncModel, safeReference } from '../utils';
 import { PAGE_SIZE } from '../../constants/products';
 import Api from '../../Api';
-import { LatestProductCollection } from '../schema';
+import { ProductCollection } from '../schema';
 
 export const LatestProductsStore = types
   .model('LatestProductsStore', {
@@ -33,7 +33,7 @@ function fetchLatest() {
 
     const res = await Api.Products.fetchLatest();
 
-    const results = flow.merge(res.data, LatestProductCollection);
+    const results = flow.merge(res.data, ProductCollection);
 
     store.setHasNoMore(res.data.length < PAGE_SIZE);
 
@@ -59,7 +59,7 @@ function fetchMore() {
         limit: PAGE_SIZE,
       });
 
-      const results = flow.merge(res.data, LatestProductCollection);
+      const results = flow.merge(res.data, ProductCollection);
 
       if (res.data.length < PAGE_SIZE) {
         store.setHasNoMore(true);

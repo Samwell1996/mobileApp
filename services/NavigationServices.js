@@ -1,5 +1,4 @@
 import { NavigationActions } from 'react-navigation';
-import screen from '../navigation/screens';
 
 class NavigationServices {
   constructor() {

@@ -3,7 +3,7 @@ import colors from '../../../styles/colors';
 
 export const s = StyleSheet.create({
   containerItem: {
-    flex: 1,
+    width: '47.75%',
     marginTop: 8,
     marginHorizontal: 4,
     backgroundColor: colors.white,
@@ -31,8 +31,7 @@ export const s = StyleSheet.create({
     height: 148,
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
-    marginLeft: 10,
-    width: 148,
+    width: '100%',
     zIndex: 1,
   },
   containerTitle: {
@@ -41,10 +40,12 @@ export const s = StyleSheet.create({
   },
   textTitle: {
     fontSize: 14,
+    color: colors.textColors,
   },
   textPrice: {
     fontWeight: 'bold',
     fontSize: 14,
+    color: colors.textColors,
   },
   containerPrice: {
     paddingTop: 8,

@@ -12,7 +12,7 @@ import gStyles from '../../styles/styles';
 import colors from '../../styles/colors';
 import ListFooter from '../../components/ProductList/ListFooter/ListFooter';
 
-function BrowseScreen() {
+function BrowseScreen({ navigation }) {
   const store = useStore();
   useEffect(() => {
     store.latestProducts.fetchLatest.run();
@@ -21,7 +21,6 @@ function BrowseScreen() {
   return (
     <ProductList
       store={store.latestProducts}
-      onItemPress={() => {}}
       onRefresh={() => store.latestProducts.fetchLatest.run()}
       refreshing={store.latestProducts.fetchLatest.isLoading}
       ListFooterComponent={() => (
@@ -45,6 +44,8 @@ BrowseScreen.navigationOptions = () => ({
   ),
 });
 
-BrowseScreen.propTypes = {};
+BrowseScreen.propTypes = {
+  navigation: T.object,
+};
 
 export default observer(BrowseScreen);

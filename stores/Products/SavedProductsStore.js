@@ -2,6 +2,12 @@ import { types } from 'mobx-state-tree';
 import { asyncModel, safeReference } from '../utils';
 import { ProductModel } from './ProductModel';
 import Api from '../../Api';
+import { ProductCollection } from '../schema';
+
+const getIds = (store) => {
+  const itemsIds = store.items.map(({ id }) => id);
+  return itemsIds;
+};
 
 export const SavedProductsStore = types
   .model('SavedProductsStore', {
@@ -12,11 +18,23 @@ export const SavedProductsStore = types
     setItems(items) {
       store.items = items;
     },
-    addItem(id) {
-      store.setItems([id, ...store.items]);
+    mergeItems(items) {
+      const itemsIds = getIds(store);
+
+      items.forEach((id) => {
+        if (!itemsIds.includes(id)) {
+          itemsIds.push(id);
+        }
+      });
+      store.setItems(itemsIds);
     },
-    removeItem(id) {
-      const items = store.items.filter((itemId) => itemId !== id);
+    addItem(id) {
+      const itemsIds = getIds(store);
+      store.setItems([id, ...itemsIds]);
+    },
+    removeItem(itemId) {
+      const itemsIds = getIds(store);
+      const items = itemsIds.filter((id) => itemId !== id);
       store.setItems(items);
     },
   }));
@@ -25,7 +43,8 @@ function fetchSaved() {
   return async function fetchSavedFlow(flow, store) {
     try {
       const res = await Api.Products.fetchSaved();
-      store.setItems(res.data.map((item) => item.id));
+      const results = flow.merge(res.data, ProductCollection);
+      store.mergeItems(results);
     } catch (e) {
       console.log(e);
     }

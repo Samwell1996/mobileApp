@@ -9,7 +9,6 @@ import {
   shape,
 } from '../../../utils/validationSchema';
 import InputAuth from '../../../components/Auth/InputAuth/InputAuth';
-import NavigationService from '../../../services/NavigationServices';
 import Bottom from '../../../components/Auth/Bottom/Bottom';
 import screens from '../../../navigation/screens';
 import { useStore } from '../../../stores/createStore';

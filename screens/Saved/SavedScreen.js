@@ -10,7 +10,7 @@ function SavedScreen() {
   const store = useStore();
   useEffect(() => {
     store.savedProducts.fetchSaved.run();
-  });
+  }, []);
   return (
     <ProductList store={store.savedProducts} onItemPress={() => {}} />
   );

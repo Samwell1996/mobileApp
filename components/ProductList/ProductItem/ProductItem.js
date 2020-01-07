@@ -6,6 +6,8 @@ import T from 'prop-types';
 import notFound from '../../../assets/not-found.png';
 import { s } from './styles';
 import colors from '../../../styles/colors';
+import screens from '../../../navigation/screens';
+import NavigationServices from '../../../services/NavigationServices';
 
 function ProductItem({ item }) {
   let image = 'wrong';
@@ -22,18 +24,34 @@ function ProductItem({ item }) {
   }
   return (
     <View style={s.containerItem}>
-      {item.photos && item.photos.length > 0 ? (
-        <View style={s.containerImage}>
-          <Image source={{ uri: image }} style={s.image} />
-          <Image
-            source={notFound}
-            style={[s.imageNotFound, s.imageAbsolute]}
-          />
-        </View>
+      {!!item.photos && item.photos.length > 0 ? (
+        <TouchableOpacity
+          onPress={() =>
+            NavigationServices.navigate(screens.ProductView, {
+              productId: item.id,
+            })
+          }
+        >
+          <View style={s.containerImage}>
+            <Image source={{ uri: image }} style={s.image} />
+            <Image
+              source={notFound}
+              style={[s.imageNotFound, s.imageAbsolute]}
+            />
+          </View>
+        </TouchableOpacity>
       ) : (
-        <View>
-          <Image source={notFound} style={s.imageNotFound} />
-        </View>
+        <TouchableOpacity
+          onPress={() =>
+            NavigationServices.navigate(screens.ProductView, {
+              productId: item.id,
+            })
+          }
+        >
+          <View>
+            <Image source={notFound} style={s.imageNotFound} />
+          </View>
+        </TouchableOpacity>
       )}
       <View style={s.containerTitle}>
         <Text style={s.textTitle}>{item.title}</Text>

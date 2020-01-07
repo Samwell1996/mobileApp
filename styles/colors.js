@@ -1,4 +1,5 @@
 export default {
+  shadow: '#2A2A2A',
   grey: '#E5E5E5',
   primary: '#349A89',
   white: '#fff',
@@ -8,4 +9,5 @@ export default {
   isErrorColor: '#FF4060',
   colorNone: 'transparent',
   greyColorIconChevron: '#D6D6D6',
+  textColors: '#333333',
 };

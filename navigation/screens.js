@@ -4,6 +4,7 @@ export default mirror([
   'App',
   'Empty',
   'Setting',
+  'ProductView',
 
   // Authentication
   'Auth',

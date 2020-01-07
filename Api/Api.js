@@ -73,3 +73,11 @@ export const Products = {
     return axios.post(`${BASE_URL}products/${id}/saved`);
   },
 };
+
+export const Chats = {
+  createChat(id, message) {
+    return axios.post(`${BASE_URL}products/${id}/createChat`, {
+      message,
+    });
+  },
+};

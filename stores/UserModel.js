@@ -12,12 +12,18 @@ export const UserModel = types
     updatedAt: types.maybeNull(types.string),
     email: types.maybeNull(types.string),
 
-    // ownProducts: types.maybeNull(OwnProducts),
+    ownProducts: types.optional(OwnProducts, {}),
   })
 
   .views((store) => ({
     get initials() {
-      const [firstName, lastName] = store.fullName.split(' ');
-      return `${firstName[0]} ${lastName[0]}`;
+      let i = '';
+      const fullName = store.fullName.split(' ');
+      if (fullName.length === 1) {
+        i = fullName[0][0];
+      } else if (fullName.length > 1) {
+        i = `${fullName[0][0]} ${fullName[1][0]}`;
+      }
+      return i;
     },
   }));
