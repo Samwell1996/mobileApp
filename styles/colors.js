@@ -10,4 +10,6 @@ export default {
   colorNone: 'transparent',
   greyColorIconChevron: '#D6D6D6',
   textColors: '#333333',
+  textBlue: '#3498DB',
+  phoneGreen: '#2ECC71',
 };

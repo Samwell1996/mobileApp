@@ -1,4 +1,5 @@
 import { getRoot, getSnapshot, types } from 'mobx-state-tree';
+import { formatRelative, subDays } from 'date-fns';
 import { UserModel } from '../UserModel';
 import { asyncModel, safeReference } from '../utils';
 import { ChatSchema } from '../schema';
@@ -28,6 +29,12 @@ export const ProductModel = types
   // }))
 
   .actions((store) => ({
+    date() {
+      return formatRelative(
+        subDays(new Date(), 4),
+        new Date(store.createdAt),
+      );
+    },
     setSaved(saved) {
       store.saved = saved;
     },
