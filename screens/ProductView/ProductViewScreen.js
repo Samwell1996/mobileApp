@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {
+  Image,
   ScrollView,
   Text,
   TouchableOpacity,
@@ -23,6 +24,7 @@ import ItemPhotos from '../../components/ProductView/ItemPhotos/ItemPhotos';
 import { s } from './styles';
 import gStyles from '../../styles/styles';
 import colors from '../../styles/colors';
+import notFound from '../../assets/not-found.png';
 
 function ProductViewScreen({ navigation }) {
   const [slider, setSlider] = useState(0);
@@ -75,18 +77,22 @@ function ProductViewScreen({ navigation }) {
       </LinearGradient>
       <ScrollView style={s.containerBetween}>
         <View style={s.containerPhotos}>
-          <Carousel
-            data={product.photos}
-            renderItem={({ item, index }) => (
-              <ItemPhotos item={item} index={index} />
-            )}
-            sliderWidth={500}
-            itemWidth={500}
-            onSnapToItem={(index) => setSlider(index)}
-          />
+          {product.photos && product.photos.length > 0 ? (
+            <Carousel
+              data={product.photos}
+              renderItem={({ item, index }) => (
+                <ItemPhotos item={item} index={index} />
+              )}
+              sliderWidth={500}
+              itemWidth={500}
+              onSnapToItem={(index) => setSlider(index)}
+            />
+          ) : (
+            <Image source={notFound} style={s.photosNotFound} />
+          )}
           <View style={s.circles}>
             <Pagination
-              dotsLength={product.photos.length}
+              dotsLength={product.photos && product.photos.length}
               activeDotIndex={slider}
               dotStyle={s.whiteCircles}
               inactiveDotOpacity={0.4}

@@ -184,4 +184,10 @@ export const s = StyleSheet.create({
     backgroundColor: colors.white,
     zIndex: 10,
   },
+  photosNotFound: {
+    overflow: 'hidden',
+    height: 356,
+    width: '100%',
+    zIndex: 1,
+  },
 });

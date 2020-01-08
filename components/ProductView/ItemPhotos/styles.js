@@ -14,9 +14,10 @@ export const s = StyleSheet.create({
     zIndex: 2,
   },
   photosNotFound: {
-    overflow: 'hidden',
+    justifyContent: 'center',
+    alignItems: 'center',
     height: 356,
-    width: '100%',
+    width: '85%',
     zIndex: 1,
   },
   absoluteNotFound: {
