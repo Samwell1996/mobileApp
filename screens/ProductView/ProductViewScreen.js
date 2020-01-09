@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import {
-  Image,
   ScrollView,
   Text,
   TouchableOpacity,
   View,
+  Image,
 } from 'react-native';
 import { observer } from 'mobx-react';
 import { Linking } from 'expo';
@@ -21,18 +21,16 @@ import T from 'prop-types';
 import { useProductsCollection } from '../../stores/Products/ProductCollection';
 import { NavigationService } from '../../services';
 import ItemPhotos from '../../components/ProductView/ItemPhotos/ItemPhotos';
+import notFound from '../../assets/not-found.png';
 import { s } from './styles';
 import gStyles from '../../styles/styles';
 import colors from '../../styles/colors';
-import notFound from '../../assets/not-found.png';
 
 function ProductViewScreen({ navigation }) {
   const [slider, setSlider] = useState(0);
   const productId = navigation.getParam('productId');
   const collection = useProductsCollection();
   const product = collection.get(productId);
-
-  console.log(product.ownerId);
 
   const description =
     product.description || 'Product have no description';

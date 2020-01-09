@@ -12,6 +12,8 @@ const styles = StyleSheet.create({
   tabCenter: {
     textAlign: 'center',
     fontSize: 10,
+    backgroundColor: colors.white,
+    paddingBottom: 7,
   },
   header: {
     ...Platform.select({

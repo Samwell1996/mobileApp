@@ -109,7 +109,6 @@ export const s = StyleSheet.create({
   containerBottom: {
     backgroundColor: colors.white,
     top: -25,
-    marginBottom: '20%',
     flexDirection: 'row',
     borderBottomColor: colors.tabColorGrey,
     borderBottomWidth: 1,
@@ -139,9 +138,11 @@ export const s = StyleSheet.create({
     color: colors.textBlue,
   },
   containerPhoneMessage: {
+    marginTop: 50,
     flexDirection: 'row',
     bottom: 0,
     zIndex: 8,
+    paddingBottom: 57,
   },
   phone: {
     justifyContent: 'center',

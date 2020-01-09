@@ -22,7 +22,14 @@ const routes = {
     screen: BrowseNavigator,
     navigationOptions: {
       tabBarIcon: ({ tintColor }) => (
-        <Ionicons name="md-search" size={30} color={tintColor} />
+        <View style={style.tabScreens}>
+          <Ionicons
+            name="md-search"
+            size={30}
+            color={tintColor}
+            style={style.iconTab}
+          />
+        </View>
       ),
       tabBarLabel: (props) => (
         <Text
@@ -44,7 +51,14 @@ const routes = {
     screen: SavedNavigator,
     navigationOptions: {
       tabBarIcon: ({ tintColor }) => (
-        <Ionicons name="md-bookmark" size={30} color={tintColor} />
+        <View style={style.tabScreens}>
+          <Ionicons
+            name="md-bookmark"
+            size={30}
+            color={tintColor}
+            style={style.iconTab}
+          />
+        </View>
       ),
       tabBarLabel: (props) => (
         <Text
@@ -66,27 +80,38 @@ const routes = {
     screen: EmptyScreen,
     navigationOptions: {
       tabBarIcon: () => (
-        <View style={style.plusCenter}>
-          <AntDesign
-            name="pluscircle"
-            size={56}
-            color={colors.primary}
-          />
+        <View style={style.plusAbsolute}>
+          <View style={style.square} />
+          <View style={style.plusCenter}>
+            <AntDesign
+              name="pluscircle"
+              size={56}
+              style={style.plusCircle}
+            />
+          </View>
+          <View style={style.plusVisibleCircle} />
         </View>
       ),
-      tabBarLabel: () => <View style={style.plusBottom} />,
+      tabBarLabel: () => (
+        <View>
+          <View style={style.plusBottom} />
+        </View>
+      ),
     },
   },
   [screens.InboxTab]: {
     screen: InboxNavigator,
     navigationOptions: {
       tabBarIcon: ({ tintColor }) => (
-        <MaterialCommunityIcons
-          name="inbox"
-          size={30}
-          borderRadius={2}
-          color={tintColor}
-        />
+        <View style={style.tabScreens}>
+          <MaterialCommunityIcons
+            name="inbox"
+            size={30}
+            borderRadius={2}
+            color={tintColor}
+            style={style.iconTab}
+          />
+        </View>
       ),
       tabBarLabel: (props) => (
         <Text
@@ -108,7 +133,14 @@ const routes = {
     screen: ProfileNavigator,
     navigationOptions: {
       tabBarIcon: ({ tintColor }) => (
-        <Ionicons name="md-person" size={30} color={tintColor} />
+        <View style={style.tabScreens}>
+          <Ionicons
+            name="md-person"
+            size={30}
+            color={tintColor}
+            style={style.iconTab}
+          />
+        </View>
       ),
       tabBarLabel: (props) => (
         <Text
@@ -135,7 +167,11 @@ export default createBottomTabNavigator(routes, {
     activeTintColor: colors.primary,
     inactiveTintColor: colors.tabColorGrey,
     style: {
-      borderTopColor: colors.colorNone,
+      elevation: 0,
+    },
+    tabStyle: {
+      paddingTop: 33,
+      elevation: 0,
     },
   },
 });
