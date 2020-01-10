@@ -30,6 +30,20 @@ class NavigationServices {
   navigateToApp() {
     this.navigate('MainApp');
   }
+
+  navigateToBrowseScreen() {
+    this.navigate('BrowseTab');
+  }
+  navigateToSavedScreen() {
+    this.navigate('SavedTab');
+  }
+  navigateToInboxScreen() {
+    this.navigate('InboxTab');
+  }
+  navigateToProfileScreen() {
+    this.navigate('ProfileTab');
+  }
+
   onGoBack() {
     this._navigation.dispatch(NavigationActions.back());
   }

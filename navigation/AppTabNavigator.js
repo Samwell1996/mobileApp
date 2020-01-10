@@ -1,6 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
-import { Text, View } from 'react-native';
+import { Text, View, TouchableOpacity, Image } from 'react-native';
 import {
   Ionicons,
   MaterialCommunityIcons,
@@ -16,82 +16,106 @@ import InboxNavigator from './InboxNavigator';
 import colors from '../styles/colors';
 import s from '../styles/styles';
 import style from './components/styles';
+import { NavigationService } from '../services';
+import slice from '../assets/sliceTab.png';
 
 const routes = {
   [screens.BrowseTab]: {
     screen: BrowseNavigator,
     navigationOptions: {
-      tabBarIcon: ({ tintColor }) => (
-        <View style={style.tabScreens}>
-          <Ionicons
-            name="md-search"
-            size={30}
-            color={tintColor}
-            style={style.iconTab}
-          />
-        </View>
-      ),
-      tabBarLabel: (props) => (
-        <Text
-          style={[
-            s.tabCenter,
-            {
-              color: props.focused
-                ? colors.primary
-                : colors.tabColorGrey,
-            },
-          ]}
+      tabBarButtonComponent: (props) => (
+        <TouchableOpacity
+          activeOpacity={1}
+          style={style.tabBarContainer}
+          onPress={() => NavigationService.navigateToBrowseScreen()}
         >
-          Browse
-        </Text>
+          <View style={style.tabIconContainer}>
+            <Ionicons
+              name="md-search"
+              size={30}
+              style={[
+                style.iconTab,
+                {
+                  color: props.focused
+                    ? colors.primary
+                    : colors.tabColorGrey,
+                },
+              ]}
+            />
+          </View>
+          <Text
+            style={[
+              s.tabCenter,
+              {
+                color: props.focused
+                  ? colors.primary
+                  : colors.tabColorGrey,
+              },
+            ]}
+          >
+            Browse
+          </Text>
+        </TouchableOpacity>
       ),
     },
   },
   [screens.SavedTab]: {
     screen: SavedNavigator,
     navigationOptions: {
-      tabBarIcon: ({ tintColor }) => (
-        <View style={style.tabScreens}>
-          <Ionicons
-            name="md-bookmark"
-            size={30}
-            color={tintColor}
-            style={style.iconTab}
-          />
-        </View>
-      ),
-      tabBarLabel: (props) => (
-        <Text
-          style={[
-            s.tabCenter,
-            {
-              color: props.focused
-                ? colors.primary
-                : colors.tabColorGrey,
-            },
-          ]}
+      tabBarButtonComponent: (props) => (
+        <TouchableOpacity
+          activeOpacity={1}
+          style={style.tabBarContainer}
+          onPress={() => NavigationService.navigateToSavedScreen()}
         >
-          Saved
-        </Text>
+          <View style={style.tabIconContainer}>
+            <Ionicons
+              name="md-bookmark"
+              size={30}
+              style={[
+                style.iconTab,
+                {
+                  color: props.focused
+                    ? colors.primary
+                    : colors.tabColorGrey,
+                },
+              ]}
+            />
+          </View>
+          <Text
+            style={[
+              s.tabCenter,
+              {
+                color: props.focused
+                  ? colors.primary
+                  : colors.tabColorGrey,
+              },
+            ]}
+          >
+            Saved
+          </Text>
+        </TouchableOpacity>
       ),
     },
   },
   [screens.Empty]: {
     screen: EmptyScreen,
     navigationOptions: {
-      tabBarIcon: () => (
-        <View style={style.plusAbsolute}>
-          <View style={style.square} />
-          <View style={style.plusCenter}>
-            <AntDesign
-              name="pluscircle"
-              size={56}
-              style={style.plusCircle}
-            />
+      tabBarIcon: () => {
+        return (
+          <View style={style.plusAbsolute}>
+            <Image source={slice} style={style.sliceImage} />
+            <View style={style.plusCenter}>
+              <AntDesign
+                name="pluscircle"
+                size={56}
+                style={style.plusCircle}
+              />
+            </View>
+            <View style={style.plusVisibleCircle} />
           </View>
-          <View style={style.plusVisibleCircle} />
-        </View>
-      ),
+        );
+      },
       tabBarLabel: () => (
         <View>
           <View style={style.plusBottom} />
@@ -102,59 +126,79 @@ const routes = {
   [screens.InboxTab]: {
     screen: InboxNavigator,
     navigationOptions: {
-      tabBarIcon: ({ tintColor }) => (
-        <View style={style.tabScreens}>
-          <MaterialCommunityIcons
-            name="inbox"
-            size={30}
-            borderRadius={2}
-            color={tintColor}
-            style={style.iconTab}
-          />
-        </View>
-      ),
-      tabBarLabel: (props) => (
-        <Text
-          style={[
-            s.tabCenter,
-            {
-              color: props.focused
-                ? colors.primary
-                : colors.tabColorGrey,
-            },
-          ]}
+      tabBarButtonComponent: (props) => (
+        <TouchableOpacity
+          activeOpacity={1}
+          style={style.tabBarContainer}
+          onPress={() => NavigationService.navigateToInboxScreen()}
         >
-          Inbox
-        </Text>
+          <View style={style.tabIconContainer}>
+            <MaterialCommunityIcons
+              name="inbox"
+              size={30}
+              borderRadius={2}
+              style={[
+                style.iconTab,
+                {
+                  color: props.focused
+                    ? colors.primary
+                    : colors.tabColorGrey,
+                },
+              ]}
+            />
+          </View>
+          <Text
+            style={[
+              s.tabCenter,
+              {
+                color: props.focused
+                  ? colors.primary
+                  : colors.tabColorGrey,
+              },
+            ]}
+          >
+            Inbox
+          </Text>
+        </TouchableOpacity>
       ),
     },
   },
   [screens.ProfileTab]: {
     screen: ProfileNavigator,
     navigationOptions: {
-      tabBarIcon: ({ tintColor }) => (
-        <View style={style.tabScreens}>
-          <Ionicons
-            name="md-person"
-            size={30}
-            color={tintColor}
-            style={style.iconTab}
-          />
-        </View>
-      ),
-      tabBarLabel: (props) => (
-        <Text
-          style={[
-            s.tabCenter,
-            {
-              color: props.focused
-                ? colors.primary
-                : colors.tabColorGrey,
-            },
-          ]}
+      tabBarButtonComponent: (props) => (
+        <TouchableOpacity
+          activeOpacity={1}
+          style={style.tabBarContainer}
+          onPress={() => NavigationService.navigateToProfileScreen()}
         >
-          Profile
-        </Text>
+          <View style={style.tabIconContainer}>
+            <Ionicons
+              name="md-person"
+              size={30}
+              style={[
+                style.iconTab,
+                {
+                  color: props.focused
+                    ? colors.primary
+                    : colors.tabColorGrey,
+                },
+              ]}
+            />
+          </View>
+          <Text
+            style={[
+              s.tabCenter,
+              {
+                color: props.focused
+                  ? colors.primary
+                  : colors.tabColorGrey,
+              },
+            ]}
+          >
+            Profile
+          </Text>
+        </TouchableOpacity>
       ),
     },
   },
@@ -164,13 +208,10 @@ export default createBottomTabNavigator(routes, {
   tabBarComponent: CustomTabBar,
   initialRouteName: screens.BrowseTab,
   tabBarOptions: {
-    activeTintColor: colors.primary,
-    inactiveTintColor: colors.tabColorGrey,
     style: {
       elevation: 0,
     },
     tabStyle: {
-      paddingTop: 33,
       elevation: 0,
     },
   },

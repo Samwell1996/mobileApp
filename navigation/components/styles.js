@@ -8,6 +8,11 @@ const styles = StyleSheet.create({
     marginBottom: 3,
     top: -1,
   },
+  sliceImage: {
+    position: 'absolute',
+    bottom: -14,
+    left: -23,
+  },
   plusVisibleCircle: {
     backgroundColor: colors.colorNone,
     position: 'absolute',
@@ -19,9 +24,14 @@ const styles = StyleSheet.create({
     top: -9,
     overflow: 'hidden',
   },
+  tabBarContainer: {
+    marginTop: 27,
+    width: '20%',
+    opacity: 1,
+  },
   plusBottom: {
-    marginTop: 37,
-    height: 23,
+    marginTop: 10,
+    height: 30,
     backgroundColor: colors.white,
     zIndex: 1,
   },
@@ -57,24 +67,14 @@ const styles = StyleSheet.create({
     zIndex: 11,
     position: 'absolute',
   },
-  tabScreens: {
-    width: '100%',
-    height: '100%',
+  tabIconContainer: {
+    flex: 1,
     backgroundColor: colors.white,
-    position: 'absolute',
     alignItems: 'center',
+    width: '100%',
   },
   iconTab: {
     marginTop: 5,
-  },
-  square: {
-    position: 'absolute',
-    backgroundColor: colors.white,
-    zIndex: 1,
-    bottom: -14,
-    left: -17,
-    height: 40,
-    width: 90,
   },
 });
 

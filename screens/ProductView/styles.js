@@ -35,9 +35,9 @@ export const s = StyleSheet.create({
     position: 'absolute',
     fontSize: 12,
     color: colors.white,
-    zIndex: 4,
-    bottom: 30,
+    flexWrap: 'wrap',
     left: 16,
+    bottom: 8,
     opacity: 0.8,
   },
   title: {
@@ -138,7 +138,7 @@ export const s = StyleSheet.create({
     color: colors.textBlue,
   },
   containerPhoneMessage: {
-    marginTop: 50,
+    marginTop: 89,
     flexDirection: 'row',
     bottom: 0,
     zIndex: 8,

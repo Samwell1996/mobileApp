@@ -5,7 +5,7 @@ export const s = StyleSheet.create({
   list: {
     backgroundColor: colors.grey,
     paddingHorizontal: 4,
-    paddingBottom: 70,
+    paddingBottom: 75,
   },
   paddingFooter: {
     paddingBottom: 50,

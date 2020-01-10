@@ -25,9 +25,11 @@ import notFound from '../../assets/not-found.png';
 import { s } from './styles';
 import gStyles from '../../styles/styles';
 import colors from '../../styles/colors';
+import { useStore } from '../../stores/createStore';
 
 function ProductViewScreen({ navigation }) {
   const [slider, setSlider] = useState(0);
+  const store = useStore();
   const productId = navigation.getParam('productId');
   const collection = useProductsCollection();
   const product = collection.get(productId);
@@ -36,13 +38,18 @@ function ProductViewScreen({ navigation }) {
     product.description || 'Product have no description';
 
   console.log(product);
+
+  async function getUserId(id) {
+    await store.ownProducts.fetchUser.run(id);
+  }
+
   function openPhone() {
     Linking.openURL(`tel:`);
   }
   function openMessage() {
     Linking.openURL(`sms:`);
   }
-  function RenderReadMore(onPress) {
+  function renderReadMore(onPress) {
     return (
       <TouchableOpacity onPress={onPress}>
         <Text style={s.readMore}>Read more...</Text>
@@ -50,7 +57,7 @@ function ProductViewScreen({ navigation }) {
     );
   }
 
-  function RenderShowLess(onPress) {
+  function renderShowLess(onPress) {
     return (
       <TouchableOpacity onPress={onPress}>
         <Text style={s.readMore}>Show less</Text>
@@ -112,8 +119,8 @@ function ProductViewScreen({ navigation }) {
         <View style={s.bottomContainer}>
           <ViewMoreText
             numberOfLines={2}
-            renderViewMore={RenderReadMore}
-            renderViewLess={RenderShowLess}
+            renderViewMore={renderReadMore}
+            renderViewLess={renderShowLess}
             textStyle={s.description}
           >
             <Text style={s.description}>{description}</Text>

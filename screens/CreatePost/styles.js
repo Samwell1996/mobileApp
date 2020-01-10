@@ -67,7 +67,7 @@ export const s = StyleSheet.create({
     paddingHorizontal: 16,
     borderWidth: 1,
     borderColor: colors.borderColorGrey,
-    paddingVertical: 56,
+    height: 150,
   },
   containerPhotos: {
     height: 76,

@@ -72,6 +72,34 @@ export const Products = {
   addToSaved(id) {
     return axios.post(`${BASE_URL}products/${id}/saved`);
   },
+  addProduct({
+    productTitle,
+    productDescription,
+    productPhotos,
+    productPrice,
+    productLocation,
+  }) {
+    console.log({
+      productTitle,
+      productDescription,
+      productPhotos,
+      productPrice,
+      productLocation,
+    });
+    return axios.post(`${BASE_URL}products`, {
+      title: productTitle,
+      description: productDescription,
+      photos: productPhotos,
+      price: +productPrice,
+      location: productLocation,
+    });
+  },
+};
+export const User = {
+  getUserId(id) {
+    console.log(id);
+    return axios.post(`${BASE_URL}users/${id}`);
+  },
 };
 
 export const Chats = {
