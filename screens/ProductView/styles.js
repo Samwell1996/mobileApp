@@ -124,8 +124,9 @@ export const s = StyleSheet.create({
   textAvatar: {
     paddingTop: 12,
     fontSize: 16,
-    color: colors.textColors,
+    color: colors.white,
     textAlign: 'center',
+    textTransform: 'uppercase',
   },
   textFullName: {
     paddingTop: 12,
@@ -142,7 +143,7 @@ export const s = StyleSheet.create({
     flexDirection: 'row',
     bottom: 0,
     zIndex: 8,
-    paddingBottom: 57,
+    paddingBottom: 65,
   },
   phone: {
     justifyContent: 'center',

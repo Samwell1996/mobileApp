@@ -26,4 +26,8 @@ export const UserModel = types
       }
       return i;
     },
+    get firstName() {
+      const [firstName] = store.fullName.split(' ');
+      return `${firstName}`;
+    },
   }));

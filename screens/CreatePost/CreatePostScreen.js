@@ -55,10 +55,10 @@ function CreatePostScreen({ navigation }) {
   } = useFormik({
     initialValues: {
       productTitle: '',
-      productDescription: '' || 'Have no description',
+      productDescription: '',
       productPhotos: ['Have no Photo'],
-      productPrice: '' || 'Free',
-      productLocation: 'Have no Location',
+      productPrice: '' || '0',
+      productLocation: 'Ternopil',
     },
     onSubmit,
     validateOnBlur: true,

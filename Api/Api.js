@@ -57,6 +57,16 @@ export const Products = {
       `${BASE_URL}products/latest?from=${from}&limit=${limit}`,
     );
   },
+  uploadPhotos(url, type) {
+    const formData = new FormData();
+
+    formData.append('photo', {
+      url,
+      name: 'photo',
+      type: `photo/${type}`,
+    });
+    return axios.post(`${BASE_URL}upload/images`, formData);
+  },
   getById(id) {
     return axios.get(`${BASE_URL}products/${id}`);
   },
@@ -96,9 +106,9 @@ export const Products = {
   },
 };
 export const User = {
-  getUserId(id) {
+  getUserById(id) {
     console.log(id);
-    return axios.post(`${BASE_URL}users/${id}`);
+    return axios.get(`${BASE_URL}users/${id}`);
   },
 };
 

@@ -25,19 +25,12 @@ export const OwnProducts = types
 
     fetch: asyncModel(fetchOwnProducts),
     createProduct: asyncModel(createProduct),
-    fetchUser: asyncModel(fetchUser),
   })
   .actions((store) => ({
     setItems(items) {
       store.items = items;
     },
   }));
-
-function fetchUser(id) {
-  return async function fetchOwnProductsFlow() {
-    await Api.User.getUserId(id);
-  };
-}
 
 function createProduct({
   productTitle,

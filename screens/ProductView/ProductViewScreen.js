@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   ScrollView,
   Text,
@@ -26,6 +26,8 @@ import { s } from './styles';
 import gStyles from '../../styles/styles';
 import colors from '../../styles/colors';
 import { useStore } from '../../stores/createStore';
+import { useUsersCollection } from '../../stores/Users/UsersCollection';
+import LoadingComponent from '../../components/ProductView/LoadingComponent/LoadingComponent';
 
 function ProductViewScreen({ navigation }) {
   const [slider, setSlider] = useState(0);
@@ -33,16 +35,15 @@ function ProductViewScreen({ navigation }) {
   const productId = navigation.getParam('productId');
   const collection = useProductsCollection();
   const product = collection.get(productId);
+  const usersCollection = useUsersCollection();
+  const user = usersCollection.get(product.ownerId) || {};
 
   const description =
     product.description || 'Product have no description';
 
-  console.log(product);
-
-  async function getUserId(id) {
-    await store.ownProducts.fetchUser.run(id);
-  }
-
+  useEffect(() => {
+    store.entities.users.fetchUserById.run(product.ownerId);
+  }, []);
   function openPhone() {
     Linking.openURL(`tel:`);
   }
@@ -130,13 +131,18 @@ function ProductViewScreen({ navigation }) {
           <View style={s.line} />
         </View>
         <View style={s.containerBottom}>
+          <LoadingComponent
+            fetch={store.entities.users.fetchUserById.isLoading}
+          />
           <View style={s.containerAvatar}>
-            <Text style={s.textAvatar}>J A</Text>
+            <Text style={s.textAvatar}>{user.initials}</Text>
           </View>
           <View>
-            <Text style={s.textFullName}>James Anderson</Text>
+            <Text style={s.textFullName}>{user.fullName}</Text>
             <TouchableOpacity>
-              <Text style={s.textPosts}>See all James’s posts</Text>
+              <Text style={s.textPosts}>
+                See all {user.firstName}’s posts
+              </Text>
             </TouchableOpacity>
           </View>
         </View>

@@ -25,7 +25,7 @@ export const s = StyleSheet.create({
     fontSize: 22,
     paddingHorizontal: 18,
     paddingVertical: 22,
-    color: colors.textColors,
+    color: colors.white,
     textAlign: 'center',
   },
   textFullName: {
