@@ -43,6 +43,9 @@ class NavigationServices {
   navigateToProfileScreen() {
     this.navigate('ProfileTab');
   }
+  navigateToLocation() {
+    this.navigate('Location');
+  }
 
   onGoBack() {
     this._navigation.dispatch(NavigationActions.back());

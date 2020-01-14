@@ -23,6 +23,7 @@ import { s } from './styles';
 import colors from '../../styles/colors';
 import { useStore } from '../../stores/createStore';
 import NavigationService from '../../services/NavigationServices';
+import screens from '../../navigation/screens';
 
 function CreatePostScreen({ navigation }) {
   const actionRef = useRef();
@@ -36,6 +37,7 @@ function CreatePostScreen({ navigation }) {
     productPrice,
     productLocation,
   }) {
+    console.log('onSubmit');
     await store.ownProducts.createProduct.run({
       productTitle,
       productDescription,
@@ -58,7 +60,7 @@ function CreatePostScreen({ navigation }) {
       productDescription: '',
       productPhotos: ['Have no Photo'],
       productPrice: '' || '0',
-      productLocation: 'Ternopil',
+      productLocation: 'Location',
     },
     onSubmit,
     validateOnBlur: true,
@@ -192,14 +194,23 @@ function CreatePostScreen({ navigation }) {
         </View>
         <Text style={s.text}>location</Text>
         <View style={s.bottomContainer}>
-          <TouchableOpacity style={s.touchableButton}>
+          <TouchableOpacity
+            style={s.touchableButton}
+            onPress={() =>
+              NavigationService.navigate(screens.Location, {
+                setLocation: handleChange('productLocation'),
+              })
+            }
+          >
             <View style={s.locationIconContainer}>
               <MaterialIcons
                 name="location-on"
                 size={30}
                 color={colors.primary}
               />
-              <Text style={s.textPriceLocation}>Location</Text>
+              <Text style={s.textPriceLocation}>
+                {values.productLocation || 'Location'}
+              </Text>
             </View>
             <Entypo
               name="chevron-right"

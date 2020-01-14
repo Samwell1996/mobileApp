@@ -28,6 +28,7 @@ import colors from '../../styles/colors';
 import { useStore } from '../../stores/createStore';
 import { useUsersCollection } from '../../stores/Users/UsersCollection';
 import LoadingComponent from '../../components/ProductView/LoadingComponent/LoadingComponent';
+import screens from '../../navigation/screens';
 
 function ProductViewScreen({ navigation }) {
   const [slider, setSlider] = useState(0);
@@ -139,7 +140,13 @@ function ProductViewScreen({ navigation }) {
           </View>
           <View>
             <Text style={s.textFullName}>{user.fullName}</Text>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                NavigationService.navigate(screens.UserProducts, {
+                  ownerId: product.ownerId,
+                })
+              }
+            >
               <Text style={s.textPosts}>
                 See all {user.firstName}’s posts
               </Text>

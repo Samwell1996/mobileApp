@@ -18,7 +18,7 @@ export const ProductModel = types
     createdAt: types.string,
     updatedAt: types.string,
 
-    owner: types.maybe(safeReference(UserModel)),
+    owner: types.maybe(safeReference(types.late(() => UserModel))),
 
     createChat: asyncModel(createChat),
   })

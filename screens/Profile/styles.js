@@ -69,4 +69,8 @@ export const s = StyleSheet.create({
     color: colors.tabColorGrey,
     marginVertical: 16,
   },
+  containerProducts: {
+    height: '70%',
+    width: '100%',
+  },
 });

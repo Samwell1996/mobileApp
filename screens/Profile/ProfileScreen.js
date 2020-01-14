@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { TouchableOpacity, Text, View, Image } from 'react-native';
+import { observer } from 'mobx-react';
 import T from 'prop-types';
 import { Ionicons } from '@expo/vector-icons';
 import screens from '../../navigation/screens';
@@ -7,11 +8,14 @@ import { s } from './styles';
 import colors from '../../styles/colors';
 import { useViewer } from '../../stores/ViewerStore';
 import image from '../../assets/box.png';
+import ProductList from '../../components/ProductList/ProductList';
 
 function ProfileScreen({ navigation }) {
   const viewer = useViewer();
-
-  console.log('viewer', viewer);
+  const ownProducts = viewer.user.ownProducts;
+  useEffect(() => {
+    ownProducts.fetchOwnProducts.run(viewer.user.id);
+  }, []);
 
   return (
     <View style={s.container}>
@@ -41,12 +45,25 @@ function ProfileScreen({ navigation }) {
           />
         </TouchableOpacity>
       </View>
-      <View style={s.containerContent}>
-        <Image source={image} />
-        <Text style={s.textNoItems}>
-          User doesn’t sell anything yet
-        </Text>
-      </View>
+      {ownProducts.items.length > 0 ? (
+        <View style={s.containerProducts}>
+          <ProductList
+            onRefresh={() =>
+              ownProducts.fetchOwnProducts.run(viewer.user.id)
+            }
+            refreshing={ownProducts.fetchOwnProducts.isLoading}
+            store={ownProducts}
+            onItemPress={() => {}}
+          />
+        </View>
+      ) : (
+        <View style={s.containerContent}>
+          <Image source={image} />
+          <Text style={s.textNoItems}>
+            User doesn’t sell anything yet
+          </Text>
+        </View>
+      )}
     </View>
   );
 }
@@ -59,4 +76,4 @@ ProfileScreen.propTypes = {
   navigation: T.object,
 };
 
-export default ProfileScreen;
+export default observer(ProfileScreen);

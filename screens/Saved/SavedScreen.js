@@ -12,7 +12,12 @@ function SavedScreen() {
     store.savedProducts.fetchSaved.run();
   }, []);
   return (
-    <ProductList store={store.savedProducts} onItemPress={() => {}} />
+    <ProductList
+      onRefresh={() => store.savedProducts.fetchSaved.run()}
+      refreshing={store.savedProducts.fetchSaved.isLoading}
+      store={store.savedProducts}
+      onItemPress={() => {}}
+    />
   );
 }
 

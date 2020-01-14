@@ -33,16 +33,15 @@ async function uploadPhotos(urlPhoto) {
 function getProduct(id) {
   return async function getProductFlow(flow) {
     try {
-      // console.log('---------getProductFlow -----1');
+      console.log('---------getProductFlow -----1');
       const res = await Api.Products.getById(id);
-      // console.log('---------getProductFlow -----2 res', res);
+      console.log('---------getProductFlow -----2 res', res);
 
       const resMerge = flow.merge(res.data, Product);
-      // console.log('---------getProductFlow -----3 resMerge', resMerge);
+      console.log('---------getProductFlow -----3 resMerge', resMerge);
 
     } catch (err) {
-      // console.log('---------getProductFlow -----err', err);
-      // console.log(err);
+      console.log(err);
     }
   };
 }

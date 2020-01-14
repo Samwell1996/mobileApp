@@ -12,7 +12,7 @@ import gStyles from '../../styles/styles';
 import colors from '../../styles/colors';
 import ListFooter from '../../components/ProductList/ListFooter/ListFooter';
 
-function BrowseScreen({ navigation }) {
+function BrowseScreen() {
   const store = useStore();
   useEffect(() => {
     store.latestProducts.fetchLatest.run();
@@ -44,8 +44,6 @@ BrowseScreen.navigationOptions = () => ({
   ),
 });
 
-BrowseScreen.propTypes = {
-  navigation: T.object,
-};
+BrowseScreen.propTypes = {};
 
 export default observer(BrowseScreen);
