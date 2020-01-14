@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Image } from 'react-native';
 import T from 'prop-types';
 import { observer } from 'mobx-react';
-import notFound from '../../../assets/not-found.png';
+import notFound from '../../../assets/image-not-found.jpg';
 import { s } from './styles';
 
 function ItemPhotos({ item }) {

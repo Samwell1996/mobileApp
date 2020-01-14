@@ -7,7 +7,7 @@ import Api from '../Api';
 import { EntitiesStore } from './EntitiesStore';
 import { NavigationService } from '../services';
 import { SavedProductsStore } from './Products/SavedProductsStore';
-// import { OwnProducts } from './Products/OwnProductsStore';
+import { OwnProducts } from './Products/OwnProductsStore';
 
 export const RootStore = types
   .model('RootStore', {
@@ -16,7 +16,7 @@ export const RootStore = types
     latestProducts: types.optional(LatestProductsStore, {}),
     entities: types.optional(EntitiesStore, {}),
     savedProducts: types.optional(SavedProductsStore, {}),
-    // ownProducts: types.optional(OwnProducts, {}),
+    ownProducts: types.optional(OwnProducts, {}),
   })
   .actions((store) => {
     return {

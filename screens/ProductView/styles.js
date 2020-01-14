@@ -10,6 +10,9 @@ export const s = StyleSheet.create({
   containerBetween: {
     flexDirection: 'column',
   },
+  shadowBottom: {
+    position: 'absolute',
+  },
   shadow: {
     position: 'absolute',
     left: 0,
@@ -30,6 +33,7 @@ export const s = StyleSheet.create({
   containerPhotos: {
     overflow: 'hidden',
     height: 356,
+    width: '100%',
   },
   date: {
     position: 'absolute',
@@ -189,7 +193,6 @@ export const s = StyleSheet.create({
   photosNotFound: {
     overflow: 'hidden',
     height: 356,
-    width: '100%',
     zIndex: 1,
   },
 });

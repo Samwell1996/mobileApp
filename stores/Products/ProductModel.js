@@ -23,10 +23,10 @@ export const ProductModel = types
     createChat: asyncModel(createChat),
   })
 
-  // .preProcessSnapshot((snapshot) => ({
-  //   ...snapshot,
-  //   owner: snapshot.ownerId,
-  // }))
+  .preProcessSnapshot((snapshot) => ({
+    ...snapshot,
+    owner: snapshot.ownerId,
+  }))
 
   .actions((store) => ({
     date() {

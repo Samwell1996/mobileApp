@@ -70,10 +70,24 @@ export const s = StyleSheet.create({
     height: 150,
   },
   containerPhotos: {
+    width: '100%',
+    flexDirection: 'row',
     height: 76,
     backgroundColor: colors.white,
     borderWidth: 1,
     borderColor: colors.borderColorGrey,
+  },
+  containerForPhotos: {
+    flexDirection: 'row',
+  },
+  photos: {
+    width: 44,
+    height: 44,
+    marginVertical: 16,
+    backgroundColor: colors.greyPhotos,
+    borderRadius: 4,
+    borderWidth: 1,
+    marginRight: 16,
   },
   photosButton: {
     width: 44,

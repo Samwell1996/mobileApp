@@ -21,7 +21,7 @@ import T from 'prop-types';
 import { useProductsCollection } from '../../stores/Products/ProductCollection';
 import { NavigationService } from '../../services';
 import ItemPhotos from '../../components/ProductView/ItemPhotos/ItemPhotos';
-import notFound from '../../assets/not-found.png';
+import notFound from '../../assets/image-not-found.jpg';
 import { s } from './styles';
 import gStyles from '../../styles/styles';
 import colors from '../../styles/colors';
@@ -38,7 +38,7 @@ function ProductViewScreen({ navigation }) {
   const product = collection.get(productId);
   const usersCollection = useUsersCollection();
   const user = usersCollection.get(product.ownerId) || {};
-
+  console.log(product);
   const description =
     product.description || 'Product have no description';
 

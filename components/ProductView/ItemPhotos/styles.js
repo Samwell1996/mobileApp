@@ -14,8 +14,7 @@ export const s = StyleSheet.create({
     zIndex: 2,
   },
   photosNotFound: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    // alignItems: 'center',
     height: 356,
     width: '85%',
     zIndex: 1,

@@ -43,8 +43,8 @@ class NavigationServices {
   navigateToProfileScreen() {
     this.navigate('ProfileTab');
   }
-  navigateToLocation() {
-    this.navigate('Location');
+  navigateToCreatePost() {
+    this.navigate('CreatePostModal');
   }
 
   onGoBack() {

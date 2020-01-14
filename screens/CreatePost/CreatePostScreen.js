@@ -6,6 +6,7 @@ import {
   TextInput,
   ScrollView,
   KeyboardAvoidingView,
+  Image,
 } from 'react-native';
 import {
   Ionicons,
@@ -19,14 +20,16 @@ import { useFormik } from 'formik';
 import ActionSheet from 'react-native-actionsheet';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
-import { s } from './styles';
-import colors from '../../styles/colors';
 import { useStore } from '../../stores/createStore';
 import NavigationService from '../../services/NavigationServices';
 import screens from '../../navigation/screens';
+import Api from '../../Api';
+import { s } from './styles';
+import colors from '../../styles/colors';
 
 function CreatePostScreen({ navigation }) {
   const actionRef = useRef();
+  const [photos, setPhotos] = useState([]);
   const [isSwitch, setIsSwitch] = useState(true);
   const store = useStore();
 
@@ -37,7 +40,13 @@ function CreatePostScreen({ navigation }) {
     productPrice,
     productLocation,
   }) {
-    console.log('onSubmit');
+    console.log('itemCreate', {
+      productTitle,
+      productDescription,
+      photos,
+      productPrice,
+      productLocation,
+    });
     await store.ownProducts.createProduct.run({
       productTitle,
       productDescription,
@@ -57,10 +66,10 @@ function CreatePostScreen({ navigation }) {
   } = useFormik({
     initialValues: {
       productTitle: '',
+      productPhotos: [''],
       productDescription: '',
-      productPhotos: ['Have no Photo'],
       productPrice: '' || '0',
-      productLocation: 'Location',
+      productLocation: '',
     },
     onSubmit,
     validateOnBlur: true,
@@ -84,10 +93,29 @@ function CreatePostScreen({ navigation }) {
 
   async function onOpenGallery() {
     try {
+      console.log('1');
       await Permissions.askAsync(Permissions.CAMERA_ROLL);
-      await ImagePicker.launchImageLibraryAsync();
+      console.log('2');
+      const answer = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        quality: 0.5,
+      });
+      console.log('3', answer);
+      if (answer.cancelled === false) {
+        uploadPhotos(answer.uri);
+      }
     } catch (err) {
       console.log(err);
+    }
+  }
+
+  async function uploadPhotos(url) {
+    try {
+      console.log('123');
+      const response = await Api.Products.uploadPhotos(url);
+      setPhotos([...photos, response.data]);
+    } catch (err) {
+      console.log('error', err.response.data);
     }
   }
 
@@ -140,6 +168,19 @@ function CreatePostScreen({ navigation }) {
             >
               <Feather name="plus" size={25} style={s.iconPlus} />
             </TouchableOpacity>
+            <ScrollView
+              showsHorizontalScrollIndicator={false}
+              horizontal
+              style={s.containerForPhotos}
+              bounces={false}
+            >
+              {!!photos.length &&
+                photos.map((photo) => (
+                  <View key={photo}>
+                    <Image source={{ uri: photo }} style={s.photos} />
+                  </View>
+                ))}
+            </ScrollView>
           </View>
         </View>
       </View>

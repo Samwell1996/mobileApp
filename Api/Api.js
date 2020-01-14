@@ -57,14 +57,16 @@ export const Products = {
       `${BASE_URL}products/latest?from=${from}&limit=${limit}`,
     );
   },
-  uploadPhotos(url, type) {
+  uploadPhotos(url) {
+    console.log('url', url);
     const formData = new FormData();
-
-    formData.append('photo', {
-      url,
-      name: 'photo',
-      type: `photo/${type}`,
+    console.log('afterUrl');
+    formData.append('image', {
+      uri: url,
+      name: 'image',
+      type: `image/jpg`,
     });
+    console.log('formData', formData);
     return axios.post(`${BASE_URL}upload/images`, formData);
   },
   getById(id) {

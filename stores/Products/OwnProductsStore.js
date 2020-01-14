@@ -1,6 +1,6 @@
 import { types } from 'mobx-state-tree';
 import { ProductCollection } from '../schema';
-import { asyncModel } from '../utils';
+import { asyncModel, getTypePhotos } from '../utils';
 import Api from '../../Api';
 import { NavigationService } from '../../services';
 import { ProductModel } from './ProductModel';
@@ -13,12 +13,21 @@ export const OwnProducts = types
 
     fetchOwnProducts: asyncModel(fetchOwnProducts),
     createProduct: asyncModel(createProduct),
+    uploadPhotos: asyncModel(uploadPhotos),
   })
   .actions((store) => ({
     setItems(items) {
       store.items = items;
     },
+    setPhotos(photos) {
+      store.photos = photos;
+    },
   }));
+async function uploadPhotos(urlPhoto) {
+  const type = getTypePhotos(urlPhoto);
+  const response = await Api.Products.uploadPhotos(urlPhoto, type);
+  store.setPhotos([...photos, response.data]);
+}
 
 function createProduct({
   productTitle,
@@ -27,9 +36,8 @@ function createProduct({
   productPrice,
   productLocation,
 }) {
-  return async function fetchCreateProductFlow() {
+  return async function createProductFlow() {
     try {
-      console.log('123');
       await Api.Products.addProduct({
         productTitle,
         productDescription,
@@ -37,7 +45,6 @@ function createProduct({
         productPrice,
         productLocation,
       });
-      console.log('log123');
       NavigationService.navigateToApp();
     } catch (e) {
       console.log(e);
