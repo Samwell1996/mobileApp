@@ -7,6 +7,7 @@ export default mirror([
   'ProductView',
   'UserProducts',
   'Location',
+  'Chat',
 
   // Authentication
   'Auth',

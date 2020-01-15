@@ -31,6 +31,7 @@ function CreatePostScreen({ navigation }) {
   const store = useStore();
   const actionRef = useRef();
   const [isSwitch, setIsSwitch] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   async function onSubmit({
     title,
@@ -91,7 +92,6 @@ function CreatePostScreen({ navigation }) {
   async function onOpenGallery() {
     try {
       await Permissions.askAsync(Permissions.CAMERA_ROLL);
-      console.log('2');
       const answer = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         quality: 0.5,

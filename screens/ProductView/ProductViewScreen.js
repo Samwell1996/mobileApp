@@ -48,9 +48,6 @@ function ProductViewScreen({ navigation }) {
   function openPhone() {
     Linking.openURL(`tel:`);
   }
-  function openMessage() {
-    Linking.openURL(`sms:`);
-  }
   function renderReadMore(onPress) {
     return (
       <TouchableOpacity onPress={onPress}>
@@ -164,7 +161,14 @@ function ProductViewScreen({ navigation }) {
               <Text style={s.textCall}>Call</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={s.message} onPress={openMessage}>
+          <TouchableOpacity
+            style={s.message}
+            onPress={() =>
+              NavigationService.navigate(screens.Chat, {
+                ownerId: product.ownerId,
+              })
+            }
+          >
             <View style={s.containerPhone}>
               <MaterialIcons
                 name="message"

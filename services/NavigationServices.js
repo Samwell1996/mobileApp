@@ -46,6 +46,9 @@ class NavigationServices {
   navigateToCreatePost() {
     this.navigate('CreatePostModal');
   }
+  navigateToChat() {
+    this.navigate('Chat');
+  }
 
   onGoBack() {
     this._navigation.dispatch(NavigationActions.back());
