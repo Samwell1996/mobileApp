@@ -17,12 +17,19 @@ function InboxScreen() {
 
   return (
     <View style={s.container}>
-      <FlatList
-        refreshing={store.chats.isLoading}
-        keyExtractor={(item) => `${item.id}`}
-        data={store.chats.items}
-        renderItem={({ item }) => <Text>{item.id}</Text>}
-      />
+      {store.chats.items.length > 0 ? (
+        <FlatList
+          refreshing={store.chats.isLoading}
+          keyExtractor={(item) => `${item.id}`}
+          data={store.chats.items}
+          renderItem={({ item }) => <Text>{item.id}</Text>}
+        />
+      ) : (
+        <View style={s.containerNoMessages}>
+          <Image source={image} />
+          <Text style={s.textNoMessages}>No messages yet</Text>
+        </View>
+      )}
     </View>
   );
 }
@@ -35,7 +42,3 @@ InboxScreen.navigationOptions = () => ({
 InboxScreen.propTypes = {};
 
 export default observer(InboxScreen);
-{/*<View style={s.containerNoMessages}>*/}
-{/*  <Image source={image} />*/}
-{/*  <Text style={s.textNoMessages}>No messages yet</Text>*/}
-{/*</View>*/}
