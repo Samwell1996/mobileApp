@@ -77,10 +77,8 @@ export const s = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.borderColorGrey,
   },
-  containerForPhotos: {
-    flexDirection: 'row',
-  },
   photos: {
+    zIndex: 5,
     width: 44,
     height: 44,
     marginVertical: 16,

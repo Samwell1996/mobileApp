@@ -58,15 +58,12 @@ export const Products = {
     );
   },
   uploadPhotos(url) {
-    console.log('url', url);
     const formData = new FormData();
-    console.log('afterUrl');
     formData.append('image', {
       uri: url,
       name: 'image',
       type: `image/jpg`,
     });
-    console.log('formData', formData);
     return axios.post(`${BASE_URL}upload/images`, formData);
   },
   getById(id) {
@@ -84,26 +81,13 @@ export const Products = {
   addToSaved(id) {
     return axios.post(`${BASE_URL}products/${id}/saved`);
   },
-  addProduct({
-    productTitle,
-    productDescription,
-    productPhotos,
-    productPrice,
-    productLocation,
-  }) {
-    console.log({
-      productTitle,
-      productDescription,
-      productPhotos,
-      productPrice,
-      productLocation,
-    });
+  addProduct({ title, description, photos, price, location }) {
     return axios.post(`${BASE_URL}products`, {
-      title: productTitle,
-      description: productDescription,
-      photos: productPhotos,
-      price: +productPrice,
-      location: productLocation,
+      title,
+      description,
+      photos,
+      price,
+      location,
     });
   },
 };

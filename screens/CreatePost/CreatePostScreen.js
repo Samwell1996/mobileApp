@@ -28,34 +28,25 @@ import { s } from './styles';
 import colors from '../../styles/colors';
 
 function CreatePostScreen({ navigation }) {
-  const actionRef = useRef();
-  const [photos, setPhotos] = useState([]);
-  const [isSwitch, setIsSwitch] = useState(true);
   const store = useStore();
+  const actionRef = useRef();
+  const [isSwitch, setIsSwitch] = useState(true);
 
   async function onSubmit({
-    productTitle,
-    productDescription,
-    productPhotos,
-    productPrice,
-    productLocation,
+    title,
+    description,
+    photos,
+    price,
+    location,
   }) {
-    console.log('itemCreate', {
-      productTitle,
-      productDescription,
-      photos,
-      productPrice,
-      productLocation,
-    });
     await store.ownProducts.createProduct.run({
-      productTitle,
-      productDescription,
-      productPhotos,
-      productPrice,
-      productLocation,
+      title,
+      description,
+      photos,
+      price,
+      location,
     });
   }
-
   const {
     values,
     errors,
@@ -63,18 +54,18 @@ function CreatePostScreen({ navigation }) {
     handleSubmit,
     handleBlur,
     touched,
+    setFieldValue,
   } = useFormik({
     initialValues: {
-      productTitle: '',
-      productPhotos: [''],
-      productDescription: '',
-      productPrice: '' || '0',
-      productLocation: '',
+      title: '',
+      photos: [],
+      description: '',
+      price: '' || '0',
+      location: '',
     },
     onSubmit,
     validateOnBlur: true,
   });
-
   useEffect(() => {
     navigation.setParams({ handleSubmit });
   }, []);
@@ -85,7 +76,13 @@ function CreatePostScreen({ navigation }) {
         Permissions.CAMERA,
         Permissions.CAMERA_ROLL,
       );
-      await ImagePicker.launchCameraAsync();
+      const answer = await ImagePicker.launchCameraAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        quality: 0.5,
+      });
+      if (answer.cancelled === false) {
+        uploadPhotos(answer.uri);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -93,14 +90,12 @@ function CreatePostScreen({ navigation }) {
 
   async function onOpenGallery() {
     try {
-      console.log('1');
       await Permissions.askAsync(Permissions.CAMERA_ROLL);
       console.log('2');
       const answer = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         quality: 0.5,
       });
-      console.log('3', answer);
       if (answer.cancelled === false) {
         uploadPhotos(answer.uri);
       }
@@ -111,11 +106,10 @@ function CreatePostScreen({ navigation }) {
 
   async function uploadPhotos(url) {
     try {
-      console.log('123');
       const response = await Api.Products.uploadPhotos(url);
-      setPhotos([...photos, response.data]);
+      setFieldValue('photos', [...values.photos, response.data]);
     } catch (err) {
-      console.log('error', err.response.data);
+      console.log('error', err);
     }
   }
 
@@ -139,23 +133,19 @@ function CreatePostScreen({ navigation }) {
         <TextInput
           style={s.inputTitle}
           placeholder="Title"
-          onChangeText={handleChange('productTitle')}
-          onBlur={handleBlur('productTitle')}
-          value={values.productTitle}
-          error={touched.productTitle ? errors.productTitle : ''}
+          onChangeText={handleChange('title')}
+          onBlur={handleBlur('title')}
+          value={values.title}
+          error={touched.title ? errors.title : ''}
         />
         <TextInput
           multiline
           style={s.InputDesc}
           placeholder="Description"
-          onChangeText={handleChange('productDescription')}
-          onBlur={handleBlur('productDescription')}
-          value={values.productDescription}
-          error={
-            touched.productDescription
-              ? errors.productDescription
-              : ''
-          }
+          onChangeText={handleChange('description')}
+          onBlur={handleBlur('description')}
+          value={values.description}
+          error={touched.description ? errors.description : ''}
         />
       </View>
       <View>
@@ -171,11 +161,10 @@ function CreatePostScreen({ navigation }) {
             <ScrollView
               showsHorizontalScrollIndicator={false}
               horizontal
-              style={s.containerForPhotos}
               bounces={false}
             >
-              {!!photos.length &&
-                photos.map((photo) => (
+              {!!values.photos.length &&
+                values.photos.map((photo) => (
                   <View key={photo}>
                     <Image source={{ uri: photo }} style={s.photos} />
                   </View>
@@ -220,12 +209,10 @@ function CreatePostScreen({ navigation }) {
                 autoCompleteType="cc-number"
                 placeholder="Enter price..."
                 style={s.inputTitle}
-                onChangeText={handleChange('productPrice')}
-                onBlur={handleBlur('productPrice')}
-                value={values.productPrice}
-                error={
-                  touched.productPrice ? errors.productPrice : ''
-                }
+                onChangeText={handleChange('price')}
+                onBlur={handleBlur('price')}
+                value={values.price}
+                error={touched.price ? errors.price : ''}
               />
               <TouchableOpacity style={s.textUahContainer}>
                 <Text style={s.textPriceLocation}>uah</Text>
@@ -239,7 +226,7 @@ function CreatePostScreen({ navigation }) {
             style={s.touchableButton}
             onPress={() =>
               NavigationService.navigate(screens.Location, {
-                setLocation: handleChange('productLocation'),
+                setLocation: handleChange('location'),
               })
             }
           >
@@ -250,7 +237,7 @@ function CreatePostScreen({ navigation }) {
                 color={colors.primary}
               />
               <Text style={s.textPriceLocation}>
-                {values.productLocation || 'Location'}
+                {values.location || 'Location'}
               </Text>
             </View>
             <Entypo

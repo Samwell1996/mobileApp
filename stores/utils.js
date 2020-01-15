@@ -129,8 +129,3 @@ export function safeReference(T) {
     },
   });
 }
-export function getTypePhotos(url) {
-  const urlPhoto = url.split('.');
-
-  return urlPhoto[urlPhoto.length - 1];
-}

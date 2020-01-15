@@ -1,11 +1,16 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { s } from './styles';
+import { NavigationService } from '../../services';
 
-function EmptyScreen(props) {
+function EmptyScreen() {
   return (
     <View style={s.container}>
-      <Text>{JSON.stringify(props)}</Text>
+      <TouchableOpacity
+        onPress={() => NavigationService.navigateToCreatePost()}
+      >
+        <Text>Touch for create</Text>
+      </TouchableOpacity>
     </View>
   );
 }
