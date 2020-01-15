@@ -3,7 +3,7 @@ import colors from '../../styles/colors';
 
 export const s = StyleSheet.create({
   container: {
-    height: '85%',
+    height: '90%',
     width: '100%',
     backgroundColor: colors.grey,
     alignItems: 'center',

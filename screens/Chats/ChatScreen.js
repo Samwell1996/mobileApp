@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, Text, TextInput } from 'react-native';
 import T from 'prop-types';
+import { observer } from 'mobx-react';
 import { useUsersCollection } from '../../stores/Users/UsersCollection';
 import { useStore } from '../../stores/createStore';
 import { s } from './styles';
@@ -40,4 +41,4 @@ ChatScreen.propTypes = {
   navigation: T.object,
 };
 
-export default ChatScreen;
+export default observer(ChatScreen);

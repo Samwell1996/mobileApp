@@ -8,6 +8,7 @@ export default mirror([
   'UserProducts',
   'Location',
   'Chat',
+  'ChatNavigator',
 
   // Authentication
   'Auth',

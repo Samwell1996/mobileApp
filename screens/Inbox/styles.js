@@ -8,6 +8,11 @@ export const s = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  container: {
+    backgroundColor: colors.grey,
+    width: '100%',
+    height: '100%',
+  },
   textNoMessages: {
     fontSize: 18,
     color: colors.tabColorGrey,

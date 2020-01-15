@@ -38,7 +38,6 @@ function ProductViewScreen({ navigation }) {
   const product = collection.get(productId);
   const usersCollection = useUsersCollection();
   const user = usersCollection.get(product.ownerId) || {};
-  console.log(product);
   const description =
     product.description || 'Product have no description';
 

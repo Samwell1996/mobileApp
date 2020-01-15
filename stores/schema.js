@@ -15,3 +15,4 @@ export const ChatSchema = new schema.Entity('chats', {
   product: Product,
   participants: [User],
 });
+export const ChatCollectionSchema = [ChatSchema];

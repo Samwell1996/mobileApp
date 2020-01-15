@@ -104,4 +104,7 @@ export const Chats = {
       message,
     });
   },
+  getChats() {
+    return axios.get(`${BASE_URL}chats`);
+  },
 };

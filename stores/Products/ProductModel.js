@@ -31,7 +31,7 @@ export const ProductModel = types
   .actions((store) => ({
     date() {
       return formatRelative(
-        subDays(new Date(), 4),
+        subDays(new Date(), 0),
         new Date(store.createdAt),
       );
     },

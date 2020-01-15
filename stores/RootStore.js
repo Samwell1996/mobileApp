@@ -8,6 +8,8 @@ import { EntitiesStore } from './EntitiesStore';
 import { NavigationService } from '../services';
 import { SavedProductsStore } from './Products/SavedProductsStore';
 import { OwnProducts } from './Products/OwnProductsStore';
+import { ChatStore } from './Chats/ChatStore';
+import { MessageStore } from './Chats/MessageStore';
 
 export const RootStore = types
   .model('RootStore', {
@@ -17,6 +19,8 @@ export const RootStore = types
     entities: types.optional(EntitiesStore, {}),
     savedProducts: types.optional(SavedProductsStore, {}),
     ownProducts: types.optional(OwnProducts, {}),
+    chats: types.optional(ChatStore, {}),
+    messages: types.optional(MessageStore, {}),
   })
   .actions((store) => {
     return {

@@ -44,10 +44,8 @@ export function asyncModel(thunk, auto = true) {
         return promise;
       },
       merge(data, schema) {
-        const { entities, result } = normalize(data, schema)
-
+        const { entities, result } = normalize(data, schema);
         getRoot(store).entities.merge(entities);
-
         return result;
       },
       async _auto(promise) {

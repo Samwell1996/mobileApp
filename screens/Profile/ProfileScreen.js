@@ -9,7 +9,6 @@ import colors from '../../styles/colors';
 import { useViewer } from '../../stores/ViewerStore';
 import image from '../../assets/box.png';
 import ProductList from '../../components/ProductList/ProductList';
-import { NavigationService } from '../../services';
 
 function ProfileScreen({ navigation }) {
   const viewer = useViewer();

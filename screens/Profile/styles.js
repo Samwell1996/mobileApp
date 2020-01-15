@@ -27,6 +27,7 @@ export const s = StyleSheet.create({
     paddingVertical: 22,
     color: colors.white,
     textAlign: 'center',
+    textTransform: 'uppercase',
   },
   textFullName: {
     paddingVertical: 10,
