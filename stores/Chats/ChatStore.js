@@ -32,9 +32,8 @@ function fetchChats() {
   return async function fetchChatsFlow(flow, store) {
     try {
       const res = await Api.Chats.getChats();
-      console.log(res, 'res');
+      console.log(res, 'resChats');
       const results = flow.merge(res.data, ChatCollectionSchema);
-      console.log(results, 'results');
       store.runInAction((self) => {
         self.items = results;
       });

@@ -56,10 +56,12 @@ export const s = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
     marginTop: 8,
+    marginRight: 70,
   },
   textOwnerName: {
     color: colors.textBlue,
     fontSize: 14,
+    marginRight: 70,
   },
   dateContainer: {
     position: 'absolute',

@@ -93,7 +93,6 @@ export const Products = {
 };
 export const User = {
   getUserById(id) {
-    console.log(id);
     return axios.get(`${BASE_URL}users/${id}`);
   },
 };
@@ -106,5 +105,8 @@ export const Chats = {
   },
   getChats() {
     return axios.get(`${BASE_URL}chats`);
+  },
+  getMessages(id) {
+    return axios.get(`${BASE_URL}chats/${id}/messages`);
   },
 };

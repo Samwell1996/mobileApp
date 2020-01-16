@@ -5,8 +5,10 @@ import T from 'prop-types';
 import { useProductsCollection } from '../../stores/Products/ProductCollection';
 import { useUsersCollection } from '../../stores/Users/UsersCollection';
 import { useStore } from '../../stores/createStore';
-import { s } from './styles';
 import notFound from '../../assets/image-not-found.jpg';
+import { NavigationService } from '../../services';
+import { s } from './styles';
+import screens from '../../navigation/screens';
 
 function ChatItem({ item }) {
   const store = useStore();
@@ -22,13 +24,21 @@ function ChatItem({ item }) {
   }
 
   useEffect(() => {
-    store.entities.products.fetchProductById.run(item.ownerId);
+    store.entities.products.fetchProductById.run(item.productId);
     store.entities.users.fetchUserById.run(item.ownerId);
   }, []);
-  console.log(product, 'product');
-  console.log('idOwner', item.ownerId);
+
   return (
-    <TouchableOpacity style={s.containerChat}>
+    <TouchableOpacity
+      style={s.containerChat}
+      onPress={() =>
+        NavigationService.navigate(screens.Chat, {
+          chatId: item.id,
+          ownerId: product.ownerId,
+          productId: item.productId,
+        })
+      }
+    >
       <View style={s.containerAvatars}>
         <View style={s.productAvatarContainer}>
           {!!product.photos && product.photos.length > 0 ? (
@@ -48,8 +58,12 @@ function ChatItem({ item }) {
         </View>
       </View>
       <View style={s.infoContainerText}>
-        <Text style={s.textProductName}>{product.title}</Text>
-        <Text style={s.textOwnerName}>{user.fullName}</Text>
+        <Text style={s.textProductName} numberOfLines={1}>
+          {product.title}
+        </Text>
+        <Text style={s.textOwnerName} numberOfLines={1}>
+          {user.fullName}
+        </Text>
         <Text numberOfLines={1} style={s.textMessage}>
           {item.message.text}
         </Text>

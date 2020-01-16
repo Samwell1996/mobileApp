@@ -2,16 +2,12 @@ import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import T from 'prop-types';
-import LoadingComponent from '../../../components/ProductView/LoadingComponent/LoadingComponent';
 import Header from '../../../components/Header/Header';
 import NavigationService from '../../../services/NavigationServices';
-import { useStore } from '../../../stores/createStore';
 import { s } from './styles';
 import gStyles from '../../../styles/styles';
 
 function HeaderUser({ userInitials, userFullName }) {
-  const store = useStore();
-
   return (
     <Header>
       <View style={s.containerHeader}>
@@ -21,11 +17,6 @@ function HeaderUser({ userInitials, userFullName }) {
           <Ionicons name="ios-arrow-back" size={30} style={s.icon} />
         </TouchableOpacity>
         <View style={s.containerUserInfo}>
-          <View style={s.loading}>
-            <LoadingComponent
-              fetch={store.entities.users.fetchUserById.isLoading}
-            />
-          </View>
           <View style={s.avatar}>
             <Text style={s.avatarText}>{userInitials}</Text>
           </View>
