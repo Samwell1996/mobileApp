@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import {
   View,
   Text,
-  TextInput,
   Image,
   TouchableOpacity,
+  FlatList,
 } from 'react-native';
 import T from 'prop-types';
 import { observer } from 'mobx-react';
@@ -14,20 +14,24 @@ import { useUsersCollection } from '../../stores/Users/UsersCollection';
 import { useProductsCollection } from '../../stores/Products/ProductCollection';
 import { useStore } from '../../stores/createStore';
 import { NavigationService } from '../../services';
+import MessagesItem from '../../components/MessagesItem/MessagesItem';
 import screens from '../../navigation/screens';
+import image from '../../assets/inbox.png';
 import notFound from '../../assets/image-not-found.jpg';
 import { s } from './styles';
 import colors from '../../styles/colors';
 
-function ChatScreen({ navigation }) {
+function ChatScreen({ navigation, ...props }) {
   const store = useStore();
+  const productCollection = useProductsCollection();
+  const usersCollection = useUsersCollection();
   const ownerId = navigation.getParam('ownerId');
   const chatId = navigation.getParam('chatId');
   const productId = navigation.getParam('productId');
-  const usersCollection = useUsersCollection();
-  const user = usersCollection.get(ownerId) || {};
-  const productCollection = useProductsCollection();
+  const userId = navigation.getParam('userId');
   const product = productCollection.get(productId) || {};
+  const owner = usersCollection.get(ownerId) || {};
+  const user = usersCollection.get(userId) || {};
 
   let productPhoto = 'wrong';
   if (product.photos && product.photos.length) {
@@ -40,11 +44,12 @@ function ChatScreen({ navigation }) {
     store.entities.products.fetchProductById.run(productId);
     store.messages.fetchMessages.run(chatId);
   }, []);
+
   return (
     <View>
       <HeaderUser
-        userInitials={user.initials}
-        userFullName={user.fullName}
+        userInitials={owner.initials}
+        userFullName={owner.fullName}
       />
       <View style={s.containerProduct}>
         <TouchableOpacity
@@ -87,8 +92,30 @@ function ChatScreen({ navigation }) {
         </TouchableOpacity>
       </View>
       <View style={s.container}>
-        <Text>{chatId}</Text>
-        <TextInput />
+        {store.messages.items.length > 0 ? (
+          <View>
+            <FlatList
+              contentContainerStyle={s.list}
+              refreshing={store.messages.fetchMessages.isLoading}
+              keyExtractor={(item) => `${item.id}`}
+              data={store.messages.items.slice()}
+              inverted
+              renderItem={({ item }) => (
+                <MessagesItem
+                  item={item}
+                  rootProps={props}
+                  userId={user.id}
+                />
+              )}
+              {...props}
+            />
+          </View>
+        ) : (
+          <View style={s.containerNoMessages}>
+            <Image source={image} />
+            <Text style={s.textNoMessages}>No messages yet</Text>
+          </View>
+        )}
       </View>
     </View>
   );

@@ -32,11 +32,10 @@ export const s = StyleSheet.create({
     borderRadius: 50,
   },
   container: {
-    height: '90%',
+    height: '79%',
     width: '100%',
     backgroundColor: colors.grey,
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: 'column-reverse',
   },
   infoText: {
     marginRight: 75,
@@ -56,5 +55,20 @@ export const s = StyleSheet.create({
     right: 0,
     paddingVertical: 12,
     paddingHorizontal: 15,
+  },
+  textNoMessages: {
+    fontSize: 18,
+    color: colors.tabColorGrey,
+    marginVertical: 16,
+  },
+  containerNoMessages: {
+    flex: 1,
+    backgroundColor: colors.grey,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  list: {
+    marginTop: 4,
+    marginBottom: 9,
   },
 });

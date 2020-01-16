@@ -16,3 +16,4 @@ export const ChatSchema = new schema.Entity('chats', {
   participants: [User],
 });
 export const ChatCollectionSchema = [ChatSchema];
+export const MessageCollectionSchema = [MessageSchema];

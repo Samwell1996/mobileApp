@@ -36,6 +36,7 @@ function ChatItem({ item }) {
           chatId: item.id,
           ownerId: product.ownerId,
           productId: item.productId,
+          userId: item.ownerId,
         })
       }
     >
