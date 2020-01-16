@@ -32,8 +32,6 @@ export const s = StyleSheet.create({
     borderRadius: 50,
   },
   container: {
-    height: '79%',
-    width: '100%',
     backgroundColor: colors.grey,
     flexDirection: 'column-reverse',
   },
@@ -69,6 +67,33 @@ export const s = StyleSheet.create({
   },
   list: {
     marginTop: 4,
-    marginBottom: 9,
+  },
+  containerSendMessage: {
+    borderTopWidth: 1,
+    backgroundColor: colors.white,
+    borderTopColor: colors.borderColorGrey,
+    justifyContent: 'space-between',
+  },
+  containerTextInput: {
+    paddingVertical: 8,
+    paddingLeft: 8,
+    marginRight: 56,
+  },
+  textInput: {
+    fontSize: 16,
+    paddingHorizontal: 16,
+    backgroundColor: colors.greyPhotos,
+    paddingVertical: 6,
+    borderWidth: 1,
+    borderColor: colors.borderColorGrey,
+    borderRadius: 4,
+  },
+  messageIcon: {
+    position: 'absolute',
+    right: 0,
+    bottom: 0,
+    paddingHorizontal: 16,
+    paddingTop: 18,
+    paddingBottom: 15,
   },
 });

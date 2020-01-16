@@ -5,10 +5,12 @@ import {
   Image,
   TouchableOpacity,
   FlatList,
+  TextInput,
+  KeyboardAvoidingView,
 } from 'react-native';
 import T from 'prop-types';
 import { observer } from 'mobx-react';
-import { Entypo } from '@expo/vector-icons';
+import { Entypo, Ionicons } from '@expo/vector-icons';
 import HeaderUser from '../../components/Header/HeaderUser/HeaderUser';
 import { useUsersCollection } from '../../stores/Users/UsersCollection';
 import { useProductsCollection } from '../../stores/Products/ProductCollection';
@@ -117,6 +119,22 @@ function ChatScreen({ navigation, ...props }) {
           </View>
         )}
       </View>
+      <KeyboardAvoidingView
+        style={s.containerSendMessage}
+        keyBoardVerticalOffset={80}
+        behavior="padding"
+      >
+        <View style={s.containerTextInput}>
+          <TextInput
+            multiline
+            style={s.textInput}
+            placeholder="Message..."
+          />
+        </View>
+        <View style={s.messageIcon}>
+          <Ionicons name="md-send" size={25} color={colors.primary} />
+        </View>
+      </KeyboardAvoidingView>
     </View>
   );
 }
