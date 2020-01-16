@@ -3,27 +3,33 @@ import { FlatList, Image, Text, View } from 'react-native';
 import { observer } from 'mobx-react';
 import T from 'prop-types';
 import image from '../../assets/inbox.png';
+import { useStore } from '../../stores/createStore';
+import ChatItem from '../../components/ChatItem/ChatItem';
 import { s } from './styles';
 import gStyles from '../../styles/styles';
-import { useStore } from '../../stores/createStore';
 
-function InboxScreen() {
+function InboxScreen({ ...props }) {
   const store = useStore();
 
   useEffect(() => {
     store.chats.fetchChats.run();
   }, []);
-  console.log(store.chats.items, 'chats');
 
   return (
     <View style={s.container}>
       {store.chats.items.length > 0 ? (
-        <FlatList
-          refreshing={store.chats.isLoading}
-          keyExtractor={(item) => `${item.id}`}
-          data={store.chats.items}
-          renderItem={({ item }) => <Text>{item.id}</Text>}
-        />
+        <View>
+          <FlatList
+            refreshing={store.chats.fetchChats.isLoading}
+            keyExtractor={(item) => `${item.id}`}
+            data={store.chats.items.slice()}
+            renderItem={({ item }) => (
+              <ChatItem item={item} rootProps={props} />
+            )}
+            {...props}
+          />
+          <View style={s.line} />
+        </View>
       ) : (
         <View style={s.containerNoMessages}>
           <Image source={image} />

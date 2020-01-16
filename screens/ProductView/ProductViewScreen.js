@@ -29,10 +29,12 @@ import { useStore } from '../../stores/createStore';
 import { useUsersCollection } from '../../stores/Users/UsersCollection';
 import LoadingComponent from '../../components/ProductView/LoadingComponent/LoadingComponent';
 import screens from '../../navigation/screens';
+import { useViewer } from '../../stores/ViewerStore';
 
 function ProductViewScreen({ navigation }) {
   const [slider, setSlider] = useState(0);
   const store = useStore();
+  const viewer = useViewer();
   const productId = navigation.getParam('productId');
   const collection = useProductsCollection();
   const product = collection.get(productId);
@@ -40,6 +42,8 @@ function ProductViewScreen({ navigation }) {
   const user = usersCollection.get(product.ownerId) || {};
   const description =
     product.description || 'Product have no description';
+
+  const isViewer = product.ownerId === viewer.user.id;
 
   useEffect(() => {
     store.entities.users.fetchUserById.run(product.ownerId);
@@ -149,6 +153,8 @@ function ProductViewScreen({ navigation }) {
             </TouchableOpacity>
           </View>
         </View>
+      </ScrollView>
+      {!isViewer && (
         <View style={s.containerPhoneMessage}>
           <TouchableOpacity style={s.phone} onPress={openPhone}>
             <View style={s.containerPhone}>
@@ -178,7 +184,7 @@ function ProductViewScreen({ navigation }) {
             </View>
           </TouchableOpacity>
         </View>
-      </ScrollView>
+      )}
     </View>
   );
 }

@@ -13,7 +13,7 @@ export const UsersCollection = createCollection(UserModel, {
 });
 
 function fetchUserById(id) {
-  return async function fetchOwnProductsFlow(flow, store) {
+  return async function fetchUserByIdFlow(flow, store) {
     const res = await Api.User.getUserById(id);
     store.add(res.data.id, res.data);
   };

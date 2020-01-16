@@ -143,10 +143,7 @@ export const s = StyleSheet.create({
     color: colors.textBlue,
   },
   containerPhoneMessage: {
-    marginTop: 89,
     flexDirection: 'row',
-    bottom: 0,
-    zIndex: 8,
     paddingBottom: 65,
   },
   phone: {

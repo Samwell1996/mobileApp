@@ -18,4 +18,9 @@ export const s = StyleSheet.create({
     color: colors.tabColorGrey,
     marginVertical: 16,
   },
+  line: {
+    backgroundColor: colors.borderColorGrey,
+    height: 1,
+    top: -1,
+  },
 });
