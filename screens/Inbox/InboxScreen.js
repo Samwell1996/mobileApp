@@ -20,6 +20,7 @@ function InboxScreen({ ...props }) {
       {store.chats.items.length > 0 ? (
         <View>
           <FlatList
+            onRefresh={() => store.chats.fetchChats.run()}
             refreshing={store.chats.fetchChats.isLoading}
             keyExtractor={(item) => `${item.id}`}
             data={store.chats.items.slice()}

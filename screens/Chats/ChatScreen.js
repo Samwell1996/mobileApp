@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -25,6 +25,7 @@ import colors from '../../styles/colors';
 
 function ChatScreen({ navigation, ...props }) {
   const store = useStore();
+  const [message, setMessage] = useState('');
   const productCollection = useProductsCollection();
   const usersCollection = useUsersCollection();
   const ownerId = navigation.getParam('ownerId');
@@ -46,6 +47,11 @@ function ChatScreen({ navigation, ...props }) {
     store.entities.products.fetchProductById.run(productId);
     store.messages.fetchMessages.run(chatId);
   }, []);
+
+  function onSendMessage() {
+    store.chats.getById(+chatId).sendMessage.run(message);
+    setMessage('');
+  }
 
   return (
     <View>
@@ -93,11 +99,12 @@ function ChatScreen({ navigation, ...props }) {
           </View>
         </TouchableOpacity>
       </View>
-      <View style={s.container}>
+      <View style={s.containerList}>
         {store.messages.items.length > 0 ? (
           <View>
             <FlatList
               contentContainerStyle={s.list}
+              onRefresh={() => store.messages.fetchMessages.run()}
               refreshing={store.messages.fetchMessages.isLoading}
               keyExtractor={(item) => `${item.id}`}
               data={store.messages.items.slice()}
@@ -122,18 +129,23 @@ function ChatScreen({ navigation, ...props }) {
       <KeyboardAvoidingView
         style={s.containerSendMessage}
         keyBoardVerticalOffset={80}
-        behavior="padding"
+        behavior="height"
       >
         <View style={s.containerTextInput}>
           <TextInput
             multiline
             style={s.textInput}
             placeholder="Message..."
+            onChangeText={setMessage}
+            value={message}
           />
         </View>
-        <View style={s.messageIcon}>
+        <TouchableOpacity
+          onPress={onSendMessage}
+          style={s.messageIcon}
+        >
           <Ionicons name="md-send" size={25} color={colors.primary} />
-        </View>
+        </TouchableOpacity>
       </KeyboardAvoidingView>
     </View>
   );

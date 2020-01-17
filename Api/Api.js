@@ -109,4 +109,9 @@ export const Chats = {
   getMessages(id) {
     return axios.get(`${BASE_URL}chats/${id}/messages`);
   },
+  sendMessages(id, message) {
+    return axios.post(`${BASE_URL}chats/${id}/messages`, {
+      message,
+    });
+  },
 };

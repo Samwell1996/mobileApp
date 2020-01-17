@@ -31,9 +31,10 @@ export const s = StyleSheet.create({
     width: 32,
     borderRadius: 50,
   },
-  container: {
+  containerList: {
     backgroundColor: colors.grey,
     flexDirection: 'column-reverse',
+    height: '70%',
   },
   infoText: {
     marginRight: 75,

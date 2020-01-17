@@ -1,8 +1,8 @@
-import { types } from 'mobx-state-tree';
+import { getParent, getRoot, types } from 'mobx-state-tree';
 import { asyncModel } from '../utils';
 import { MessageModel } from './MessageModel';
 import Api from '../../Api';
-import { MessageCollectionSchema } from '../schema';
+import { MessageCollectionSchema, MessageSchema } from '../schema';
 
 export const MessageStore = types
   .model('MessageStore', {
@@ -10,9 +10,28 @@ export const MessageStore = types
 
     fetchMessages: asyncModel(fetchMessages),
   })
+  .views((store) => ({
+    get asList() {
+      return store.items.slice();
+    },
+
+    get chatId() {
+      return getParent(store).id;
+    },
+  }))
   .actions((store) => ({
     runInAction(cb) {
       cb(store);
+    },
+    addMessage(message) {
+      console.log('messageAction', message);
+
+      const result = getRoot(store).entities.normalize(
+        message,
+        MessageSchema,
+      );
+
+      store.items.unshift(result);
     },
   }));
 

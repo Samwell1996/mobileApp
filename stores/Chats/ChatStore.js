@@ -5,7 +5,7 @@ import Api from '../../Api';
 import { ChatCollectionSchema } from '../schema';
 
 export const ChatStore = types
-  .model('ChatStore', {
+  .model('Chat', {
     items: types.array(types.reference(ChatModel)),
 
     fetchChats: asyncModel(fetchChats),
@@ -22,6 +22,15 @@ export const ChatStore = types
     },
     handleMessage(message) {
       console.log('Handle message');
+      if(message.type === 'ADD') {
+        console.log(message.message.id);
+        const chat = store.getById(message.message.chatId);
+
+        console.log('chatAct', chat);
+        if (typeof chat !== 'undefined') {
+          chat.messages.addMessage(message.message);
+        }
+      }
     },
     setItems(items) {
       store.items = items;
