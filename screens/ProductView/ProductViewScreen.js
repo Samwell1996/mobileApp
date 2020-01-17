@@ -22,6 +22,8 @@ import { useProductsCollection } from '../../stores/Products/ProductCollection';
 import { NavigationService } from '../../services';
 import ItemPhotos from '../../components/ProductView/ItemPhotos/ItemPhotos';
 import notFound from '../../assets/image-not-found.jpg';
+import sliceGreen from '../../assets/sliceGreen.png';
+import sliceBlue from '../../assets/sliceBlue.png';
 import { s } from './styles';
 import gStyles from '../../styles/styles';
 import colors from '../../styles/colors';
@@ -156,17 +158,28 @@ function ProductViewScreen({ navigation }) {
       </ScrollView>
       {!isViewer && (
         <View style={s.containerPhoneMessage}>
-          <TouchableOpacity style={s.phone} onPress={openPhone}>
-            <View style={s.containerPhone}>
-              <FontAwesome
-                name="phone"
-                size={20}
-                style={s.iconBottom}
-              />
-              <Text style={s.textCall}>Call</Text>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            style={s.phone}
+            onPress={openPhone}
+          >
+            <View style={s.containerForPhone}>
+              <View style={s.containerPhone}>
+                <FontAwesome
+                  name="phone"
+                  size={20}
+                  style={s.iconBottom}
+                />
+                <Text style={s.textCall}>Call</Text>
+              </View>
             </View>
+            <Image
+              source={sliceGreen}
+              style={s.imageComponentGreen}
+            />
           </TouchableOpacity>
           <TouchableOpacity
+            activeOpacity={0.7}
             style={s.message}
             onPress={() =>
               NavigationService.navigate(screens.Chat, {
@@ -174,14 +187,17 @@ function ProductViewScreen({ navigation }) {
               })
             }
           >
-            <View style={s.containerPhone}>
-              <MaterialIcons
-                name="message"
-                size={20}
-                style={s.iconBottom}
-              />
-              <Text style={s.textCall}>Message</Text>
+            <View style={s.containerForMessage}>
+              <View style={s.containerMessage}>
+                <MaterialIcons
+                  name="message"
+                  size={20}
+                  style={s.iconBottom}
+                />
+                <Text style={s.textCall}>Message</Text>
+              </View>
             </View>
+            <Image source={sliceBlue} style={s.imageComponentBlue} />
           </TouchableOpacity>
         </View>
       )}
