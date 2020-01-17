@@ -55,97 +55,104 @@ function ChatScreen({ navigation, ...props }) {
 
   return (
     <View>
-      <HeaderUser
-        userInitials={owner.initials}
-        userFullName={owner.fullName}
-      />
-      <View style={s.containerProduct}>
-        <TouchableOpacity
-          onPress={() =>
-            NavigationService.navigate(screens.ProductView, {
-              productId,
-            })
-          }
-        >
-          <View style={s.containerAvatars}>
-            <View style={s.productAvatarContainer}>
-              {!!product.photos && product.photos.length > 0 ? (
-                <View>
-                  <Image
-                    source={{ uri: productPhoto }}
-                    style={s.AvatarProduct}
-                  />
-                  <Image source={notFound} style={s.notFound} />
-                </View>
-              ) : (
-                <Image source={notFound} style={s.AvatarProduct} />
-              )}
+      <View>
+        <HeaderUser
+          userInitials={owner.initials}
+          userFullName={owner.fullName}
+        />
+        <View style={s.containerProduct}>
+          <TouchableOpacity
+            onPress={() =>
+              NavigationService.navigate(screens.ProductView, {
+                productId,
+              })
+            }
+          >
+            <View style={s.containerAvatars}>
+              <View style={s.productAvatarContainer}>
+                {!!product.photos && product.photos.length > 0 ? (
+                  <View>
+                    <Image
+                      source={{ uri: productPhoto }}
+                      style={s.AvatarProduct}
+                    />
+                    <Image source={notFound} style={s.notFound} />
+                  </View>
+                ) : (
+                  <Image source={notFound} style={s.AvatarProduct} />
+                )}
+              </View>
             </View>
-          </View>
-          <View style={s.infoText}>
-            <Text numberOfLines={1} style={s.textTitle}>
-              {product.title}
-            </Text>
-            <Text numberOfLines={1} style={s.textDescription}>
-              {product.description}
-            </Text>
-          </View>
-          <View style={s.containerIcon}>
-            <Entypo
-              name="chevron-right"
-              size={35}
-              color={colors.borderColorGrey}
-            />
-          </View>
-        </TouchableOpacity>
-      </View>
-      <View style={s.containerList}>
-        {store.messages.items.length > 0 ? (
-          <View>
-            <FlatList
-              contentContainerStyle={s.list}
-              onRefresh={() => store.messages.fetchMessages.run()}
-              refreshing={store.messages.fetchMessages.isLoading}
-              keyExtractor={(item) => `${item.id}`}
-              data={store.messages.items.slice()}
-              inverted
-              renderItem={({ item }) => (
-                <MessagesItem
-                  item={item}
-                  rootProps={props}
-                  userId={user.id}
-                />
-              )}
-              {...props}
-            />
-          </View>
-        ) : (
-          <View style={s.containerNoMessages}>
-            <Image source={image} />
-            <Text style={s.textNoMessages}>No messages yet</Text>
-          </View>
-        )}
+            <View style={s.infoText}>
+              <Text numberOfLines={1} style={s.textTitle}>
+                {product.title}
+              </Text>
+              <Text numberOfLines={1} style={s.textDescription}>
+                {product.description}
+              </Text>
+            </View>
+            <View style={s.containerIcon}>
+              <Entypo
+                name="chevron-right"
+                size={35}
+                color={colors.borderColorGrey}
+              />
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
       <KeyboardAvoidingView
-        style={s.containerSendMessage}
-        keyBoardVerticalOffset={80}
+        keyboardVerticalOffset={4}
         behavior="height"
       >
-        <View style={s.containerTextInput}>
-          <TextInput
-            multiline
-            style={s.textInput}
-            placeholder="Message..."
-            onChangeText={setMessage}
-            value={message}
-          />
+        <View style={s.containerList}>
+          {store.messages.items.length > 0 ? (
+            <View>
+              <FlatList
+                contentContainerStyle={s.list}
+                onRefresh={() => store.messages.fetchMessages.run()}
+                refreshing={store.messages.fetchMessages.isLoading}
+                keyExtractor={(item) => `${item.id}`}
+                data={store.messages.items.slice()}
+                inverted
+                renderItem={({ item }) => (
+                  <MessagesItem
+                    item={item}
+                    rootProps={props}
+                    userId={user.id}
+                  />
+                )}
+                {...props}
+              />
+            </View>
+          ) : (
+            <View style={s.containerNoMessages}>
+              <Image source={image} />
+              <Text style={s.textNoMessages}>No messages yet</Text>
+            </View>
+          )}
         </View>
-        <TouchableOpacity
-          onPress={onSendMessage}
-          style={s.messageIcon}
-        >
-          <Ionicons name="md-send" size={25} color={colors.primary} />
-        </TouchableOpacity>
+        <View style={s.containerSendMessage}>
+          <View style={s.containerTextInput}>
+            <TextInput
+              multiline
+              style={s.textInput}
+              placeholder="Message..."
+              onChangeText={setMessage}
+              value={message}
+            />
+          </View>
+          <TouchableOpacity
+            onPress={onSendMessage}
+            style={s.messageIcon}
+          >
+            <Ionicons
+              name="md-send"
+              size={25}
+              color={colors.primary}
+            />
+          </TouchableOpacity>
+        </View>
       </KeyboardAvoidingView>
     </View>
   );

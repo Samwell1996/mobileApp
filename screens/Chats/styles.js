@@ -34,7 +34,7 @@ export const s = StyleSheet.create({
   containerList: {
     backgroundColor: colors.grey,
     flexDirection: 'column-reverse',
-    height: '70%',
+    height: '76.5%',
   },
   infoText: {
     marginRight: 75,

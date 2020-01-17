@@ -116,6 +116,7 @@ export const s = StyleSheet.create({
     flexDirection: 'row',
     borderBottomColor: colors.tabColorGrey,
     borderBottomWidth: 1,
+    marginBottom: 110,
   },
   containerAvatar: {
     backgroundColor: colors.primary,
