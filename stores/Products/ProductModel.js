@@ -17,10 +17,11 @@ export const ProductModel = types
     saved: false,
     createdAt: types.string,
     updatedAt: types.string,
+    chatId: types.maybeNull(types.number),
 
     owner: types.maybe(safeReference(types.late(() => UserModel))),
 
-    createChat: asyncModel(createChat),
+    createChat: asyncModel(createChat, false),
   })
 
   .preProcessSnapshot((snapshot) => ({
@@ -52,6 +53,9 @@ export const ProductModel = types
       root.savedProducts.removeItem(store.id);
       Api.Products.fetchSavedDelete(store.id);
     },
+    setChatId(id) {
+      store.chatId = id;
+    },
   }));
 
 function createChat(message) {
@@ -62,6 +66,8 @@ function createChat(message) {
       flow.start();
       const res = await Api.Chats.createChat(store.id, message);
       chatId = res.data.id;
+      store.setChatId(chatId);
+
       res.data.participants = [getSnapshot(store.owner)];
 
       flow.merge(res.data, ChatSchema);
@@ -71,5 +77,6 @@ function createChat(message) {
 
       throw err;
     }
+    return chatId;
   };
 }

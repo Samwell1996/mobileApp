@@ -45,17 +45,26 @@ function ChatScreen({ navigation, ...props }) {
   useEffect(() => {
     store.entities.users.fetchUserById.run(ownerId);
     store.entities.products.fetchProductById.run(productId);
-    store.messages.fetchMessages.run(chatId);
+    if (chatId) {
+      store.messages.fetchMessages.run(chatId);
+      store.chats.fetchChats.run();
+    }
   }, []);
 
   function onSendMessage() {
-    store.chats.getById(+chatId).sendMessage.run(message);
-    setMessage('');
+    if (chatId) {
+      store.chats.getById(+chatId).sendMessage.run(message);
+      setMessage('');
+    } else {
+      product.createChat.run(message);
+      store.chats.fetchChats.run(chatId);
+      store.messages.fetchMessages.run(chatId);
+    }
   }
 
   return (
     <View>
-      <View>
+      <View style={s.containerHeader}>
         <HeaderUser
           userInitials={owner.initials}
           userFullName={owner.fullName}
@@ -120,6 +129,7 @@ function ChatScreen({ navigation, ...props }) {
                     item={item}
                     rootProps={props}
                     userId={user.id}
+                    ownerId={ownerId}
                   />
                 )}
                 {...props}

@@ -12,6 +12,7 @@ export const s = StyleSheet.create({
     backgroundColor: colors.grey,
     width: '100%',
     height: '100%',
+    paddingBottom: 100,
   },
   textNoMessages: {
     fontSize: 18,

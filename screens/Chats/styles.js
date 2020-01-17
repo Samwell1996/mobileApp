@@ -60,8 +60,14 @@ export const s = StyleSheet.create({
     color: colors.tabColorGrey,
     marginVertical: 16,
   },
+  containerHeader: {
+    zIndex: 10,
+  },
   containerNoMessages: {
-    flex: 1,
+    zIndex: 1,
+    marginBottom: '33%',
+    width: '100%',
+    position: 'absolute',
     backgroundColor: colors.grey,
     alignItems: 'center',
     justifyContent: 'center',

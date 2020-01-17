@@ -44,12 +44,13 @@ function ProductViewScreen({ navigation }) {
   const user = usersCollection.get(product.ownerId) || {};
   const description =
     product.description || 'Product have no description';
-
   const isViewer = product.ownerId === viewer.user.id;
 
   useEffect(() => {
     store.entities.users.fetchUserById.run(product.ownerId);
+    store.entities.products.fetchProductById.run(productId);
   }, []);
+
   function openPhone() {
     Linking.openURL(`tel:`);
   }
@@ -60,7 +61,6 @@ function ProductViewScreen({ navigation }) {
       </TouchableOpacity>
     );
   }
-
   function renderShowLess(onPress) {
     return (
       <TouchableOpacity onPress={onPress}>
@@ -184,6 +184,8 @@ function ProductViewScreen({ navigation }) {
             onPress={() =>
               NavigationService.navigate(screens.Chat, {
                 ownerId: product.ownerId,
+                productId: product.id,
+                chatId: product.chatId,
               })
             }
           >
