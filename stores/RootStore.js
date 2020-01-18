@@ -3,13 +3,12 @@ import { AsyncStorage } from 'react-native';
 import { AuthStore } from './Auth/AuthStore';
 import { ViewerStore } from './ViewerStore';
 import { LatestProductsStore } from './Products/LatestProductsStore';
-import Api from '../Api';
+import Api, { SocketApi } from '../Api';
 import { EntitiesStore } from './EntitiesStore';
 import { NavigationService } from '../services';
 import { SavedProductsStore } from './Products/SavedProductsStore';
 import { OwnProducts } from './Products/OwnProductsStore';
 import { ChatStore } from './Chats/ChatStore';
-import { MessageStore } from './Chats/MessageStore';
 
 export const RootStore = types
   .model('RootStore', {
@@ -20,7 +19,6 @@ export const RootStore = types
     savedProducts: types.optional(SavedProductsStore, {}),
     ownProducts: types.optional(OwnProducts, {}),
     chats: types.optional(ChatStore, {}),
-    messages: types.optional(MessageStore, {}),
   })
   .actions((store) => {
     return {
@@ -33,6 +31,8 @@ export const RootStore = types
             return;
           }
 
+          SocketApi.init(token);
+          SocketApi.handleMessages(store.chats.handleMessage);
           await Api.Auth.setToken(token);
 
           const res = await Api.Account.getUser();

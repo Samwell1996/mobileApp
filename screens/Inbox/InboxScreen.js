@@ -8,7 +8,7 @@ import ChatItem from '../../components/ChatItem/ChatItem';
 import { s } from './styles';
 import gStyles from '../../styles/styles';
 
-function InboxScreen({ ...props }) {
+function InboxScreen(props) {
   const store = useStore();
 
   useEffect(() => {

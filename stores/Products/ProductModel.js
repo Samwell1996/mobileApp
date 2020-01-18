@@ -70,7 +70,12 @@ function createChat(message) {
 
       res.data.participants = [getSnapshot(store.owner)];
 
-      flow.merge(res.data, ChatSchema);
+      const results = flow.merge(res.data, ChatSchema);
+
+      const chat = getRoot(store).entities.chats.get(results);
+
+      chat.messages.addMessage(res.data.message);
+
       flow.success();
     } catch (err) {
       flow.error(err);

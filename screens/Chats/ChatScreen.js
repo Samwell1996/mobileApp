@@ -24,17 +24,22 @@ import { s } from './styles';
 import colors from '../../styles/colors';
 
 function ChatScreen({ navigation, ...props }) {
-  const store = useStore();
-  const [message, setMessage] = useState('');
-  const productCollection = useProductsCollection();
-  const usersCollection = useUsersCollection();
   const ownerId = navigation.getParam('ownerId');
   const chatId = navigation.getParam('chatId');
   const productId = navigation.getParam('productId');
   const userId = navigation.getParam('userId');
+
+  const store = useStore();
+  const productCollection = useProductsCollection();
+  const usersCollection = useUsersCollection();
+
   const product = productCollection.get(productId) || {};
   const owner = usersCollection.get(ownerId) || {};
   const user = usersCollection.get(userId) || {};
+  const chat = store.entities.chats.get(chatId) || {};
+  const messages = chat ? chat.messages : null;
+
+  const [message, setMessage] = useState('');
 
   let productPhoto = 'wrong';
   if (product.photos && product.photos.length) {
@@ -45,24 +50,26 @@ function ChatScreen({ navigation, ...props }) {
   useEffect(() => {
     store.entities.users.fetchUserById.run(ownerId);
     store.entities.products.fetchProductById.run(productId);
-    if (chatId) {
-      store.messages.fetchMessages.run(chatId);
-      store.chats.fetchChats.run();
+    if (chatId && messages) {
+      messages.fetch.run(chatId);
     }
   }, []);
 
-  function onSendMessage() {
-    if (chatId) {
-      store.chats.getById(+chatId).sendMessage.run(message);
+  async function onSendMessage() {
+    try {
+      if (chatId && messages) {
+        messages.sendMessage.run(message);
+      } else {
+        const createdChatId = await product.createChat.run(message);
+
+        navigation.setParams({ chatId: createdChatId });
+      }
       setMessage('');
-    } else {
-      product.createChat.run(message);
-      store.chats.fetchChats.run(chatId);
-      store.messages.fetchMessages.run(chatId);
+    } catch(e){
+      console.log('onSendMessage error', e);
     }
   }
 
-  console.log(chatId, 'chatId');
   return (
     <View>
       <View style={s.containerHeader}>
@@ -116,32 +123,29 @@ function ChatScreen({ navigation, ...props }) {
         behavior="height"
       >
         <View style={s.containerList}>
-          {store.messages.items.length > 0 ? (
-            <View>
-              <FlatList
-                contentContainerStyle={s.list}
-                onRefresh={() => store.messages.fetchMessages.run()}
-                refreshing={store.messages.fetchMessages.isLoading}
-                keyExtractor={(item) => `${item.id}`}
-                data={store.messages.items.slice()}
-                inverted
-                renderItem={({ item }) => (
-                  <MessagesItem
-                    item={item}
-                    rootProps={props}
-                    userId={user.id}
-                    ownerId={ownerId}
-                  />
-                )}
-                {...props}
+          <FlatList
+            contentContainerStyle={s.list}
+            onRefresh={() => messages && messages.fetch.run()}
+            refreshing={messages ? messages.fetch.isLoading : false}
+            keyExtractor={(item) => `${item.id}`}
+            data={messages ? messages.asList : []}
+            inverted
+            renderItem={({ item }) => (
+              <MessagesItem
+                item={item}
+                rootProps={props}
+                userId={user.id}
+                ownerId={ownerId}
               />
-            </View>
-          ) : (
-            <View style={s.containerNoMessages}>
-              <Image source={image} />
-              <Text style={s.textNoMessages}>No messages yet</Text>
-            </View>
-          )}
+            )}
+            ListEmptyComponent={
+              <View style={s.containerNoMessages}>
+                <Image source={image} />
+                <Text style={s.textNoMessages}>No messages yet</Text>
+              </View>
+            }
+            {...props}
+          />
         </View>
         <View style={s.containerSendMessage}>
           <View style={s.containerTextInput}>

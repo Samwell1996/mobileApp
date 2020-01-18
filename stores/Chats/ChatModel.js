@@ -3,8 +3,7 @@ import { format } from 'date-fns';
 import { ProductModel } from '../Products/ProductModel';
 import { UserModel } from '../UserModel';
 import { MessageModel } from './MessageModel';
-import { asyncModel } from '../utils';
-import Api from '../../Api';
+import { MessageStore } from './MessageStore';
 
 export const ChatModel = types
   .model('ChatModel', {
@@ -17,8 +16,7 @@ export const ChatModel = types
     product: types.reference(ProductModel),
 
     user: types.reference(UserModel),
-
-    sendMessage: asyncModel(sendMessage),
+    messages: types.optional(MessageStore, {}),
   })
 
   .preProcessSnapshot((snapshot) => {
@@ -41,11 +39,9 @@ export const ChatModel = types
     date() {
       return format(new Date(store.createdAt), 'd/LL/yyy');
     },
+    setLastMessage(message){
+      store.message = message;
+    }
   }));
 
-function sendMessage(text) {
-  return async function sendMessageFlow(flow, store) {
-    const res = await Api.Chats.sendMessages(store.id, text);
-    store.messages.addMessage(res.data);
-  };
-}
+

@@ -1,18 +1,31 @@
 import { getParent, getRoot, types } from 'mobx-state-tree';
+import { normalize } from 'normalizr';
+
 import { asyncModel } from '../utils';
 import { MessageModel } from './MessageModel';
 import Api from '../../Api';
 import { MessageCollectionSchema, MessageSchema } from '../schema';
 
+const createNewMessage = (text, ownerId, chatId) => ({
+  id: new Date().valueOf(),
+  read: false,
+  createdAt: new Date().toString(),
+  updatedAt: new Date().toString(),
+  chatId,
+  ownerId,
+  text,
+});
+
 export const MessageStore = types
   .model('MessageStore', {
     items: types.array(types.reference(MessageModel)),
 
-    fetchMessages: asyncModel(fetchMessages),
+    fetch: asyncModel(fetchMessages),
+    sendMessage: asyncModel(sendMessage),
   })
   .views((store) => ({
     get asList() {
-      return store.items.slice();
+      return store?.items?.slice() || [];
     },
 
     get chatId() {
@@ -24,14 +37,30 @@ export const MessageStore = types
       cb(store);
     },
     addMessage(message) {
-      console.log('messageAction', message);
+      const { entities, result } = normalize(message, MessageSchema);
 
-      const result = getRoot(store).entities.normalize(
-        message,
+      getRoot(store).entities.merge(entities);
+
+      getParent(store).setLastMessage(result);
+      store.items.unshift(result);
+    },
+    replaceMessage(message, newMessage) {
+      const root = getRoot(store);
+
+      delete root.entities.messages.collection[message.id];
+
+      const { entities, result } = normalize(
+        newMessage,
         MessageSchema,
       );
 
-      store.items.unshift(result);
+      getRoot(store).entities.merge(entities);
+
+      const index = store.items.findIndex(({ id }) => id === message.id);
+
+      if (index !== -1) {
+        store.items[index] = result;
+      }
     },
   }));
 
@@ -39,7 +68,7 @@ function fetchMessages(id) {
   return async function fetchMessagesFlow(flow, store) {
     try {
       const res = await Api.Chats.getMessages(id);
-      console.log(res, 'resMessages');
+
       const results = flow.merge(res.data, MessageCollectionSchema);
       store.runInAction((self) => {
         self.items = results;
@@ -47,5 +76,19 @@ function fetchMessages(id) {
     } catch (e) {
       console.log(e);
     }
+  };
+}
+
+function sendMessage(text) {
+  return async function sendMessageFlow(flow, store) {
+    const root = getRoot(store);
+    const ownerId = root.viewer.user.id;
+    const optMessage = createNewMessage(text, ownerId, store.chatId);
+
+    store.addMessage(optMessage);
+
+    const res = await Api.Chats.sendMessages(store.chatId, text);
+
+    store.replaceMessage(optMessage, res.data);
   };
 }
