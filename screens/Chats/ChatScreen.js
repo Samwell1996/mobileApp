@@ -62,6 +62,7 @@ function ChatScreen({ navigation, ...props }) {
     }
   }
 
+  console.log(chatId, 'chatId');
   return (
     <View>
       <View style={s.containerHeader}>

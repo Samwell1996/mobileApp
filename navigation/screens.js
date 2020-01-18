@@ -9,17 +9,17 @@ export default mirror([
   'Location',
   'Chat',
   'ChatNavigator',
+  'Search',
 
   // Authentication
   'Auth',
-
   'Login',
   'Register',
   'RestorePassword',
 
   // Main App (Tab Navigation)
   'MainApp',
-
+  'Loading',
   'Browse',
   'BrowseTab',
 
