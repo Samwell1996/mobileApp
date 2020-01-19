@@ -132,12 +132,7 @@ function ChatScreen({ navigation, ...props }) {
             data={messages ? messages.asList : []}
             inverted
             renderItem={({ item }) => (
-              <MessagesItem
-                item={item}
-                rootProps={props}
-                userId={user.id}
-                ownerId={ownerId}
-              />
+              <MessagesItem item={item} rootProps={props} />
             )}
             ListEmptyComponent={
               <View style={s.containerNoMessages}>
