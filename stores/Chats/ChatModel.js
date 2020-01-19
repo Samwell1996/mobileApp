@@ -26,6 +26,7 @@ export const ChatModel = types
 
     if (typeof snapshot.participants === 'undefined') {
       console.log(snapshot);
+      return snapshot;
     }
 
     return {
@@ -39,9 +40,7 @@ export const ChatModel = types
     date() {
       return format(new Date(store.createdAt), 'd/LL/yyy');
     },
-    setLastMessage(message){
+    setLastMessage(message) {
       store.message = message;
-    }
+    },
   }));
-
-

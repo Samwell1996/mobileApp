@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { TouchableOpacity, View } from 'react-native';
 import { observer } from 'mobx-react';
 import { FontAwesome } from '@expo/vector-icons';
 import T from 'prop-types';
@@ -11,37 +11,54 @@ import { s } from './styles';
 import gStyles from '../../styles/styles';
 import colors from '../../styles/colors';
 import ListFooter from '../../components/ProductList/ListFooter/ListFooter';
+import SearchView from '../../components/Filters/SearchView/SearchView';
 
 function BrowseScreen() {
   const store = useStore();
+
+  const [search, setSearch] = useState('');
+
   useEffect(() => {
     store.latestProducts.fetchLatest.run();
   }, []);
 
   return (
-    <ProductList
-      store={store.latestProducts}
-      onRefresh={() => store.latestProducts.fetchLatest.run()}
-      refreshing={store.latestProducts.fetchLatest.isLoading}
-      ListFooterComponent={() => (
-        <ListFooter fetch={store.latestProducts.fetchMore} />
+    <View>
+      <Header>
+        <Search search={search} setSearch={setSearch} />
+        {search.length === 0 && (
+          <TouchableOpacity style={s.iconFilter}>
+            <FontAwesome
+              name="filter"
+              size={25}
+              color={colors.primary}
+            />
+          </TouchableOpacity>
+        )}
+      </Header>
+      {!!search.length && (
+        <SearchView
+          items={store.latestProducts.search(search)}
+          setSearch={setSearch}
+        />
       )}
-      onEndReached={() => store.latestProducts.fetchMore.run()}
-      onEndReachedThreshold={0.3}
-    />
+      <ProductList
+        store={store.latestProducts}
+        onRefresh={() => store.latestProducts.fetchLatest.run()}
+        refreshing={store.latestProducts.fetchLatest.isLoading}
+        ListFooterComponent={() => (
+          <ListFooter fetch={store.latestProducts.fetchMore} />
+        )}
+        onEndReached={() => store.latestProducts.fetchMore.run()}
+        onEndReachedThreshold={0.3}
+      />
+    </View>
   );
 }
 
 BrowseScreen.navigationOptions = () => ({
   headerStyle: gStyles.header,
-  header: (
-    <Header>
-      <Search />
-      <TouchableOpacity style={s.iconFilter}>
-        <FontAwesome name="filter" size={25} color={colors.primary} />
-      </TouchableOpacity>
-    </Header>
-  ),
+  header: null,
 });
 
 BrowseScreen.propTypes = {};

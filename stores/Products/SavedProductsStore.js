@@ -37,6 +37,17 @@ export const SavedProductsStore = types
       const items = itemsIds.filter((id) => itemId !== id);
       store.setItems(items);
     },
+  }))
+  .views((store) => ({
+    search(search) {
+      if (store.items.length) {
+        const searchItem = store.items.filter((item) =>
+          item.title.match(new RegExp(search, 'i')),
+        );
+        return searchItem;
+      }
+      return [{ title: 'title', id: 'id' }];
+    },
   }));
 
 function fetchSaved() {

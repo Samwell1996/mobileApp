@@ -119,8 +119,8 @@ function ChatScreen({ navigation, ...props }) {
         </View>
       </View>
       <KeyboardAvoidingView
-        keyboardVerticalOffset={4}
-        behavior="height"
+        keyboardVerticalOffset={-130}
+        behavior="padding"
         style={s.containerBottomChatScreen}
       >
         <View style={s.containerList}>

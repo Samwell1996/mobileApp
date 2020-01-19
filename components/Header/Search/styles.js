@@ -5,10 +5,13 @@ export const s = StyleSheet.create({
   containerHeader: {
     backgroundColor: colors.white,
     flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   input: {
     backgroundColor: colors.greyPhotos,
     borderColor: colors.borderColorGrey,
+    flex: 1,
     borderWidth: 1,
     borderRadius: 8,
     paddingVertical: 6,
@@ -22,5 +25,14 @@ export const s = StyleSheet.create({
     color: colors.borderColorGrey,
     padding: 6,
     left: 8,
+  },
+  containerCancel: {
+    height: 24,
+  },
+  textCancel: {
+    color: colors.primary,
+    fontSize: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
   },
 });

@@ -9,7 +9,7 @@ export default mirror([
   'Location',
   'Chat',
   'ChatNavigator',
-  'Search',
+  'SearchItem',
 
   // Authentication
   'Auth',
