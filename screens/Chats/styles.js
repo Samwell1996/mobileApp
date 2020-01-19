@@ -34,7 +34,6 @@ export const s = StyleSheet.create({
   containerList: {
     backgroundColor: colors.grey,
     flexDirection: 'column-reverse',
-    height: '76.5%',
   },
   infoText: {
     marginRight: 75,
@@ -75,7 +74,18 @@ export const s = StyleSheet.create({
   list: {
     marginTop: 4,
   },
+  containerBottomChatScreen: {
+    flex: 1,
+    marginBottom: -130,
+    justifyContent: 'flex-end',
+    backgroundColor: colors.grey,
+  },
+  containerChatScreen: {
+    justifyContent: 'flex-start',
+    height: '100%',
+  },
   containerSendMessage: {
+    marginBottom: 130,
     borderTopWidth: 1,
     backgroundColor: colors.white,
     borderTopColor: colors.borderColorGrey,

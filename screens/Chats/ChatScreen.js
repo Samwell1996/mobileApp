@@ -71,7 +71,7 @@ function ChatScreen({ navigation, ...props }) {
   }
 
   return (
-    <View>
+    <View style={s.containerChatScreen}>
       <View style={s.containerHeader}>
         <HeaderUser
           userInitials={owner.initials}
@@ -121,6 +121,7 @@ function ChatScreen({ navigation, ...props }) {
       <KeyboardAvoidingView
         keyboardVerticalOffset={4}
         behavior="height"
+        style={s.containerBottomChatScreen}
       >
         <View style={s.containerList}>
           <FlatList

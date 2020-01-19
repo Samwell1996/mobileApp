@@ -10,9 +10,11 @@ export const s = StyleSheet.create({
   },
   container: {
     backgroundColor: colors.grey,
-    width: '100%',
-    height: '100%',
+    flex: 1,
+  },
+  list: {
     paddingBottom: 100,
+    zIndex: 2,
   },
   textNoMessages: {
     fontSize: 18,
@@ -20,8 +22,11 @@ export const s = StyleSheet.create({
     marginVertical: 16,
   },
   line: {
+    zIndex: 3,
     backgroundColor: colors.borderColorGrey,
+    position: 'absolute',
+    width: '100%',
     height: 1,
-    top: -1,
+    bottom: 0,
   },
 });
