@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import colors from '../../../styles/colors';
+import { headerHeight } from '../../../styles/dimensions';
 
 export const s = StyleSheet.create({
   container: {
@@ -9,7 +10,7 @@ export const s = StyleSheet.create({
     top: 0,
     zIndex: 2,
     flex: 1,
-    marginTop: 78,
+    marginTop: headerHeight,
     backgroundColor: colors.grey,
     height: '100%',
   },

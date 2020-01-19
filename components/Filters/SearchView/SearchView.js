@@ -15,11 +15,7 @@ function SearchView({ items, setSearch, ...props }) {
             data={items}
             showsVerticalScrollIndicator={false}
             renderItem={({ item }) => (
-              <SearchItems
-                item={item}
-                setSearch={setSearch}
-                itemId={item.id}
-              />
+              <SearchItems item={item} setSearch={setSearch} />
             )}
             ListFooterComponent={<View style={s.line} />}
             keyExtractor={(item) => item.id.toString()}
@@ -33,7 +29,7 @@ function SearchView({ items, setSearch, ...props }) {
 
 SearchView.propTypes = {
   items: T.array,
-  setSearch: T.func,
+  setSearch: T.string,
 };
 
 export default observer(SearchView);

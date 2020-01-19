@@ -14,9 +14,11 @@ import { s } from './styles';
 import gStyles from '../../styles/styles';
 import screens from '../../navigation/screens';
 import image from '../../assets/Logo.png';
+import { useStore } from '../../stores/createStore';
 
 function SettingScreen({ navigation }) {
   const [isWebView, setIsWebView] = useState(false);
+  const store = useStore();
 
   function logout() {
     Alert.alert(
@@ -33,6 +35,7 @@ function SettingScreen({ navigation }) {
       ],
       { cancelable: false },
     );
+    store.auth.logout();
   }
   function onFirstButton() {
     Linking.openURL('https://policies.google.com/privacy?hl=en-US');

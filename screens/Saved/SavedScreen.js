@@ -17,6 +17,7 @@ function SavedScreen() {
   useEffect(() => {
     store.savedProducts.fetchSaved.run();
   }, []);
+
   return (
     <View>
       <Header>

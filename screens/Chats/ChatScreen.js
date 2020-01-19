@@ -65,7 +65,7 @@ function ChatScreen({ navigation, ...props }) {
         navigation.setParams({ chatId: createdChatId });
       }
       setMessage('');
-    } catch(e){
+    } catch (e) {
       console.log('onSendMessage error', e);
     }
   }
