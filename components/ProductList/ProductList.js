@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, View } from 'react-native';
+import { View, FlatList } from 'react-native';
 import { observer } from 'mobx-react';
 import T from 'prop-types';
 import { s } from './styles';

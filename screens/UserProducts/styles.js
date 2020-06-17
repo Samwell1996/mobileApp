@@ -12,4 +12,8 @@ export const s = StyleSheet.create({
     height: '85%',
     width: '100%',
   },
+  containerItems: {
+    height: '100%',
+    backgroundColor: colors.grey,
+  },
 });
