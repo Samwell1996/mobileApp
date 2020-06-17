@@ -182,13 +182,13 @@ export const s = StyleSheet.create({
     height: 48,
     width: 48,
     position: 'absolute',
-    right: 0,
+    right: -1,
   },
   imageComponentBlue: {
     height: 48,
     width: 48,
     position: 'absolute',
-    left: 0,
+    left: -1,
   },
   containerPhone: {
     flexDirection: 'row',

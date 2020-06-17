@@ -17,7 +17,7 @@ import colors from '../styles/colors';
 import s from '../styles/styles';
 import style from './components/styles';
 import { NavigationService } from '../services';
-import PlusAround from '../assets/svg/PlusAround';
+import { PlusAround } from '../assets/svg';
 
 const routes = {
   [screens.BrowseTab]: {

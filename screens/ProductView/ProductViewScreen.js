@@ -22,8 +22,7 @@ import { useProductsCollection } from '../../stores/Products/ProductCollection';
 import { NavigationService } from '../../services';
 import ItemPhotos from '../../components/ProductView/ItemPhotos/ItemPhotos';
 import notFound from '../../assets/image-not-found.jpg';
-import sliceGreen from '../../assets/sliceGreen.png';
-import sliceBlue from '../../assets/sliceBlue.png';
+import { SliceGreen, SliceBlue } from '../../assets/svg';
 import { s } from './styles';
 import gStyles from '../../styles/styles';
 import colors from '../../styles/colors';
@@ -173,10 +172,7 @@ function ProductViewScreen({ navigation }) {
                 <Text style={s.textCall}>Call</Text>
               </View>
             </View>
-            <Image
-              source={sliceGreen}
-              style={s.imageComponentGreen}
-            />
+            <SliceGreen style={s.imageComponentGreen} />
           </TouchableOpacity>
           <TouchableOpacity
             activeOpacity={0.7}
@@ -199,7 +195,7 @@ function ProductViewScreen({ navigation }) {
                 <Text style={s.textCall}>Message</Text>
               </View>
             </View>
-            <Image source={sliceBlue} style={s.imageComponentBlue} />
+            <SliceBlue style={s.imageComponentBlue} />
           </TouchableOpacity>
         </View>
       )}
