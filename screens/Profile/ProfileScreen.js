@@ -18,31 +18,33 @@ function ProfileScreen({ navigation }) {
 
   return (
     <View style={s.container}>
-      <SubHeader
-        navigation={navigation}
-        initials={initials}
-        fullName={fullName}
-      />
       {/* <HeaderUser userInitials={initials} userFullName={fullName} /> */}
-      {ownProducts.items.length > 0 ? (
-        <View style={s.containerProducts}>
-          <ProductList
-            onRefresh={() =>
-              ownProducts.fetchOwnProducts.run(viewer.user.id)
-            }
-            refreshing={ownProducts.fetchOwnProducts.isLoading}
-            store={ownProducts}
-            onItemPress={() => {}}
-          />
-        </View>
-      ) : (
-        <View style={s.containerContent}>
-          <Image source={image} />
-          <Text style={s.textNoItems}>
-            User doesn’t sell anything yet
-          </Text>
-        </View>
-      )}
+      <View style={s.containerProducts}>
+        <ProductList
+          ListHeaderComponent={() => (
+            <SubHeader
+              navigation={navigation}
+              initials={initials}
+              fullName={fullName}
+            />
+          )}
+          onRefresh={() =>
+            ownProducts.fetchOwnProducts.run(viewer.user.id)
+          }
+          refreshing={ownProducts.fetchOwnProducts.isLoading}
+          store={ownProducts}
+          onItemPress={() => {}}
+          ListEmptyComponent={() => (
+            <View style={s.containerContent}>
+              <Image source={image} />
+              <Text style={s.textNoItems}>
+                User doesn’t sell anything yet
+              </Text>
+            </View>
+          )}
+          showsVerticalScrollIndicator={false}
+        />
+      </View>
     </View>
   );
 }

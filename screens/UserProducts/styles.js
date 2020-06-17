@@ -16,4 +16,15 @@ export const s = StyleSheet.create({
     height: '100%',
     backgroundColor: colors.grey,
   },
+  containerContent: {
+    flex: 1,
+    backgroundColor: colors.grey,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  textNoItems: {
+    fontSize: 18,
+    color: colors.tabColorGrey,
+    marginVertical: 16,
+  },
 });
