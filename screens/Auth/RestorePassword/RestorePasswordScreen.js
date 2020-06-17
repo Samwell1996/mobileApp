@@ -7,6 +7,7 @@ import Bottom from '../../../components/Auth/Bottom/Bottom';
 import InputAuth from '../../../components/Auth/InputAuth/InputAuth';
 import screens from '../../../navigation/screens';
 import { s } from '../styles';
+import gStyles from '../../../styles/styles';
 
 function RestorePasswordScreen({ navigation }) {
   const validationSchema = shape({
@@ -68,7 +69,7 @@ function RestorePasswordScreen({ navigation }) {
 
 RestorePasswordScreen.navigationOptions = () => ({
   title: 'Restore Password',
-  headerStyle: s.header,
+  headerStyle: gStyles.header,
 });
 
 RestorePasswordScreen.propTypes = {

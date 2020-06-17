@@ -1,5 +1,6 @@
 import React from 'react';
 import { KeyboardAvoidingView, View } from 'react-native';
+import { observer } from 'mobx-react';
 import { Formik } from 'formik';
 import T from 'prop-types';
 import screens from '../../../navigation/screens';
@@ -12,6 +13,9 @@ import {
 import InputAuth from '../../../components/Auth/InputAuth/InputAuth';
 import Bottom from '../../../components/Auth/Bottom/Bottom';
 import { s } from '../styles';
+import { useStore } from '../../../stores/createStore';
+import NavigationService from '../../../services/NavigationServices';
+import gStyles from '../../../styles/styles';
 
 function RegisterScreen({ navigation }) {
   const validationSchema = shape({
@@ -20,6 +24,13 @@ function RegisterScreen({ navigation }) {
     passwordAgain: password,
     fullName,
   });
+  const store = useStore();
+
+  async function onSubmit({ email, password, fullName }) {
+    await store.auth.register.run({ email, password, fullName });
+    NavigationService.navigateToLogin();
+  }
+
   return (
     <Formik
       initialValues={{
@@ -29,9 +40,7 @@ function RegisterScreen({ navigation }) {
         fullName: '',
       }}
       validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting }) => {
-        setSubmitting(true);
-      }}
+      onSubmit={onSubmit}
       validateOnBlur
     >
       {({
@@ -44,7 +53,6 @@ function RegisterScreen({ navigation }) {
       }) => {
         return (
           <KeyboardAvoidingView
-            onSubmit={handleSubmit}
             keyBoardVerticalOffset={80}
             behavior="padding"
             style={s.container}
@@ -94,9 +102,7 @@ function RegisterScreen({ navigation }) {
             </View>
             <Bottom
               onPressFirst={() => navigation.navigate(screens.Login)}
-              onPressSecond={() =>
-                navigation.navigate(screens.MainApp)
-              }
+              onPressSecond={handleSubmit}
               textFirst="Have an account??"
               textSecond="login"
               textThird="register"
@@ -110,11 +116,11 @@ function RegisterScreen({ navigation }) {
 
 RegisterScreen.navigationOptions = () => ({
   title: 'Register',
-  headerStyle: s.header,
+  headerStyle: gStyles.header,
 });
 
 RegisterScreen.propTypes = {
   navigation: T.object,
 };
 
-export default RegisterScreen;
+export default observer(RegisterScreen);

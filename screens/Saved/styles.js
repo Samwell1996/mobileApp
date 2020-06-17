@@ -2,10 +2,13 @@ import { StyleSheet } from 'react-native';
 import colors from '../../styles/colors';
 
 export const s = StyleSheet.create({
-  container: {
+  containerSearch: {
     flex: 1,
     backgroundColor: colors.grey,
-    alignItems: 'center',
-    justifyContent: 'center',
+    position: 'absolute',
+    zIndex: 2,
+    left: 0,
+    right: 0,
+    top: 0,
   },
 });

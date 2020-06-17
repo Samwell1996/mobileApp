@@ -21,8 +21,37 @@ class NavigationServices {
     );
   }
 
-  navigateToHome() {
-    this.navigate('Home');
+  navigateToAuth() {
+    this.navigate('Auth');
+  }
+  navigateToLogin() {
+    this.navigate('Login');
+  }
+  navigateToApp() {
+    this.navigate('MainApp');
+  }
+
+  navigateToBrowseScreen() {
+    this.navigate('BrowseTab');
+  }
+  navigateToSavedScreen() {
+    this.navigate('SavedTab');
+  }
+  navigateToInboxScreen() {
+    this.navigate('InboxTab');
+  }
+  navigateToProfileScreen() {
+    this.navigate('ProfileTab');
+  }
+  navigateToCreatePost() {
+    this.navigate('CreatePostModal');
+  }
+  navigateToChat() {
+    this.navigate('Chat');
+  }
+
+  onGoBack() {
+    this._navigation.dispatch(NavigationActions.back());
   }
 }
 

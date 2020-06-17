@@ -1,27 +1,47 @@
-import React from 'react';
-import { Button, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View } from 'react-native';
+import { observer } from 'mobx-react';
 import T from 'prop-types';
+import Header from '../../components/Header/Header';
+import Search from '../../components/Header/Search/Search';
+import { useStore } from '../../stores/createStore';
+import ProductList from '../../components/ProductList/ProductList';
+import SearchView from '../../components/Filters/SearchView/SearchView';
 import { s } from './styles';
-import screens from '../../navigation/screens';
 
-function SavedScreen({ navigation }) {
+function SavedScreen() {
+  const store = useStore();
+
+  const [search, setSearch] = useState('');
+
+  useEffect(() => {
+    store.savedProducts.fetchSaved.run();
+  }, []);
+
   return (
-    <View style={s.container}>
-      <Text>Saved Screen</Text>
-      <Button
-        title="Create Post Modals"
-        onPress={() => navigation.navigate(screens.CreatePostModal)}
+    <View>
+      <Header>
+        <Search search={search} setSearch={setSearch} />
+      </Header>
+      {!!search.length && (
+        <SearchView
+          items={store.savedProducts.search(search)}
+          setSearch={setSearch}
+        />
+      )}
+      <ProductList
+        onRefresh={() => store.savedProducts.fetchSaved.run()}
+        refreshing={store.savedProducts.fetchSaved.isLoading}
+        store={store.savedProducts}
       />
     </View>
   );
 }
 
 SavedScreen.navigationOptions = () => ({
-  title: 'SavedScreen',
+  header: null,
 });
 
-SavedScreen.propTypes = {
-  navigation: T.object,
-};
+SavedScreen.propTypes = {};
 
-export default SavedScreen;
+export default observer(SavedScreen);

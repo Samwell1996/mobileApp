@@ -1,22 +1,31 @@
 import React from 'react';
 import { Formik } from 'formik';
 import { Text, View, KeyboardAvoidingView } from 'react-native';
+import { observer } from 'mobx-react';
 import T from 'prop-types';
 import {
   email,
-  passwordLogin,
+  password,
   shape,
 } from '../../../utils/validationSchema';
 import InputAuth from '../../../components/Auth/InputAuth/InputAuth';
 import Bottom from '../../../components/Auth/Bottom/Bottom';
 import screens from '../../../navigation/screens';
+import { useStore } from '../../../stores/createStore';
 import { s } from '../styles';
+import gStyles from '../../../styles/styles';
 
 function LoginScreen({ navigation }) {
   const validationSchema = shape({
     email,
-    passwordLogin,
+    password,
   });
+  const store = useStore();
+
+  async function onSubmit({ email, password }) {
+    await store.auth.login.run({ email, password });
+  }
+
   return (
     <Formik
       initialValues={{
@@ -24,9 +33,7 @@ function LoginScreen({ navigation }) {
         password: '',
       }}
       validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting }) => {
-        setSubmitting(true);
-      }}
+      onSubmit={onSubmit}
       validateOnBlur
     >
       {({
@@ -39,7 +46,6 @@ function LoginScreen({ navigation }) {
       }) => {
         return (
           <KeyboardAvoidingView
-            onSubmit={handleSubmit}
             keyBoardVerticalOffset={80}
             behavior="padding"
             style={s.container}
@@ -59,12 +65,10 @@ function LoginScreen({ navigation }) {
                 name="Password"
                 placeholder="Password"
                 secureTextEntry
-                onChangeText={handleChange('passwordLogin')}
-                value={values.passwordLogin}
-                onBlur={handleBlur('passwordLogin')}
-                error={
-                  touched.passwordLogin ? errors.passwordLogin : ''
-                }
+                onChangeText={handleChange('password')}
+                value={values.password}
+                onBlur={handleBlur('password')}
+                error={touched.password ? errors.password : ''}
                 autoCapitalize="none"
               />
               <View style={s.buttonRestorePasswordView}>
@@ -82,9 +86,7 @@ function LoginScreen({ navigation }) {
               onPressFirst={() =>
                 navigation.navigate(screens.Register)
               }
-              onPressSecond={() =>
-                navigation.navigate(screens.MainApp)
-              }
+              onPressSecond={handleSubmit}
               textFirst="Don’t have an account?"
               textSecond="register"
               textThird="login"
@@ -98,11 +100,11 @@ function LoginScreen({ navigation }) {
 
 LoginScreen.navigationOptions = () => ({
   title: 'Login',
-  headerStyle: s.header,
+  headerStyle: gStyles.header,
 });
 
 LoginScreen.propTypes = {
   navigation: T.object,
 };
 
-export default LoginScreen;
+export default observer(LoginScreen);

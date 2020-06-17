@@ -50,8 +50,8 @@ function InputAuth({ error, name, onBlur, onFocus, ...props }) {
 
 InputAuth.propTypes = {
   name: T.string,
-  error: T.bool,
-  onBlur: T.bool,
+  error: T.string,
+  onBlur: T.func,
   onFocus: T.bool,
 };
 
