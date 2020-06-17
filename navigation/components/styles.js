@@ -8,8 +8,8 @@ const styles = StyleSheet.create({
   },
   sliceImage: {
     position: 'absolute',
-    bottom: -25,
-    left: -50,
+    bottom: -26,
+    left: -37,
   },
   plusVisibleCircle: {
     backgroundColor: colors.colorNone,
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   plusBottom: {
     width: 100,
     marginTop: 10,
-    height: 30,
+    height: 27,
     backgroundColor: colors.white,
     zIndex: 1,
   },
