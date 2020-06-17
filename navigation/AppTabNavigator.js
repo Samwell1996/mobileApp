@@ -17,7 +17,7 @@ import colors from '../styles/colors';
 import s from '../styles/styles';
 import style from './components/styles';
 import { NavigationService } from '../services';
-import slice from '../assets/sliceTab.png';
+import PlusAround from '../assets/svg/PlusAround';
 
 const routes = {
   [screens.BrowseTab]: {
@@ -104,7 +104,7 @@ const routes = {
       tabBarIcon: () => {
         return (
           <View style={style.plusAbsolute}>
-            <Image source={slice} style={style.sliceImage} />
+            <PlusAround style={style.sliceImage} />
             <View style={style.plusCenter}>
               <AntDesign
                 name="pluscircle"
@@ -116,11 +116,7 @@ const routes = {
           </View>
         );
       },
-      tabBarLabel: () => (
-        <View>
-          <View style={style.plusBottom} />
-        </View>
-      ),
+      tabBarLabel: () => <View style={style.plusBottom} />,
     },
   },
   [screens.InboxTab]: {

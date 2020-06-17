@@ -5,13 +5,11 @@ const styles = StyleSheet.create({
   plusCircle: {
     zIndex: 15,
     color: colors.primary,
-    marginBottom: 3,
-    top: -1,
   },
   sliceImage: {
     position: 'absolute',
-    bottom: -14,
-    left: -23,
+    bottom: -25,
+    left: -50,
   },
   plusVisibleCircle: {
     backgroundColor: colors.colorNone,
@@ -28,15 +26,17 @@ const styles = StyleSheet.create({
     marginTop: 27,
     width: '20%',
     opacity: 1,
+    zIndex: 15,
   },
   plusBottom: {
+    width: 100,
     marginTop: 10,
     height: 30,
     backgroundColor: colors.white,
     zIndex: 1,
   },
   plusCenter: {
-    height: 55,
+    height: 56,
     width: 56,
     backgroundColor: colors.white,
     zIndex: 14,
@@ -72,9 +72,11 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     alignItems: 'center',
     width: '100%',
+    zIndex: 15,
   },
   iconTab: {
     marginTop: 5,
+    zIndex: 15,
   },
 });
 
