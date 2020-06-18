@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, Image } from 'react-native';
 import { observer } from 'mobx-react';
 import T from 'prop-types';
@@ -20,7 +20,6 @@ function UserProductScreen({ navigation }) {
   const { initials, fullName } = user;
   const viewer = useViewer();
   const { ownProducts } = viewer.user;
-  const [showHeader, setShowHeader] = useState(false);
 
   useEffect(() => {
     store.entities.users.fetchUserById.run(ownerId);
@@ -29,9 +28,7 @@ function UserProductScreen({ navigation }) {
 
   return (
     <View style={s.containerItems}>
-      {showHeader && (
-        <HeaderUser userInitials={initials} userFullName={fullName} />
-      )}
+      <HeaderUser userInitials={initials} userFullName={fullName} />
       <View style={s.containerProducts}>
         <ProductList
           ListHeaderComponent={() => (
@@ -44,7 +41,6 @@ function UserProductScreen({ navigation }) {
           onRefresh={() => ownProducts.fetchOwnProducts.run(ownerId)}
           refreshing={ownProducts.fetchOwnProducts.isLoading}
           showsVerticalScrollIndicator={false}
-          onScrollEndDrag={() => setShowHeader(true)}
           store={ownProducts}
           onItemPress={() => {}}
           scrollEventThrottle={1}
